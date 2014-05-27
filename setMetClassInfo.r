@@ -10,4 +10,6 @@ setMetClassInfo <- function(out,x,y,w,varFun=absVar) {
 	out$xVar=varFun(x)
 	out$yVar=varFun(y)
 	out$MeanRatio=out$xVar/out$yVar
+	
+	return(out)
 }
