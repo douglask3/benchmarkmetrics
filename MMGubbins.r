@@ -20,19 +20,8 @@ print.MM <- function(x, ...) {
 }
 
 summary.MM <- function(x, ...) {
-	summ=list(metic=strsplit(as.character(x$call)[1],'\\.')[[1]][1],
-		 	  xMean=x$xMean,
-		 	  yMean=x$yMean,
-		 	  "x:y Mean ratios"=x$MeanRatio,
-		 	  xVariance=x$xVar,
-		 	  yVariance=x$yVar,
-		 	  "x:y Variance ratios"=x$VarRatio)  
-	
-	if (length(as.character(x$call))<4) summ=c(summ,weights='non-defined')
-		else summ=c(summ,weights='defined')
+	summ=basic.summaryInfo(x)
 	summ=c(summ,score=x$score)
-	
-	class(summ)="listofMetric"
 	return(summ)
 }
 

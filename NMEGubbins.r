@@ -29,7 +29,7 @@ NMSEForm <- function(x,y,w) sum(w*(y-x)^2)/sum(w*(x-mean(x))^2)
 sVarDiv	<- function(x) x-sd(x)
 
 MeanSub <- function(x) x-mean(x)
-absVar  <- function(x) mean(x-mean(x))
+absVar  <- function(x) mean(abs(x-mean(x)))
 	
 
 print.NME <- function(x, ...) {
@@ -46,17 +46,26 @@ print.NME <- function(x, ...) {
 }
 
 summary.NME <- function(x, ...) {
-	cat("Call:\n")
-	print(x$call)
-
-	cat("\nScores:\n")
-	cat("Step1\t\tStep2\t\tStep3\n")
+	summ=basic.summaryInfo(x)
 	
-	scores=paste(standard.round(x$step1),
-				 standard.round(x$step2),
-				 standard.round(x$step3),sep="\t\t")
-	cat(scores)
+	summ$Scores=c(x$step1,x$step2,x$step3)
+	names(summ$Scores)=paste('Step',1:3)
+	
+	return(summ)
 }
 
+basic.summaryInfo <- function(x) {
+	summ=list(metic=strsplit(as.character(x$call)[1],'\\.')[[1]][1],
+		 	  xMean=x$xMean,
+		 	  yMean=x$yMean,
+		 	  "x:y Mean ratios"=x$MeanRatio,
+		 	  xVariance=x$xVar,
+		 	  yVariance=x$yVar,
+		 	  "x:y Variance ratios"=x$VarRatio)
+	if (length(as.character(x$call))<4) summ=c(summ,weights='non-defined')
+		else summ=c(summ,weights='defined')
+	class(summ)="listofMetric"
+	return(summ)
+}
 
 plot.NME <- function(x,...)  plot(x$x,x$y,cex=x$w,...)
