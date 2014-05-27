@@ -19,7 +19,7 @@ NMEGubbins <- function(x,y,w,metFun=NMEForm,varFun=aVarDiv) {
 	c(x,y,z):=ManVars(x,y,w,varFun)
 	NME3=metFun(x,y,w)
 	
-	return(list(step1=NME1,step2=NME2,step3=NME3,xMean=mean_x))
+	return(list(step1=NME1,step2=NME2,step3=NME3))
 }
 
 NMEForm <- function(x,y,w) sum(w*abs(y-x))/sum(w*abs(x-mean(x)))
@@ -29,7 +29,6 @@ NMSEForm <- function(x,y,w) sum(w*(y-x)^2)/sum(w*(x-mean(x))^2)
 sVarDiv	<- function(x) x-sd(x)
 
 MeanSub <- function(x) x-mean(x)
-
 absVar  <- function(x) mean(x-mean(x))
 	
 
