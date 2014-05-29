@@ -1,4 +1,7 @@
-setMetClassInfo <- function(out,x,y,w,varFun=absVar,itemize=FALSE) {
+setMetClassInfo <- function(out,x,y,w,varFun=absVar,itemize=FALSE,DiffFun='/') {
+	
+	if (is.character(DiffFun)) DiffFun=match.fun(DiffFun)
+	
 	out$x=x
 	out$y=y
 	out$w=w
@@ -15,12 +18,19 @@ setMetClassInfo <- function(out,x,y,w,varFun=absVar,itemize=FALSE) {
 	
 	out$xMean=meanMe(x)
 	out$yMean=meanMe(y)
-	out$MeanRatio=out$yMean/out$xMean
+	out$MeanRatio=DiffFun(out$yMean,out$xMean)
 	
 	out$xVar=varMe(x)
 	out$yVar=varMe(y)
-	out$VarRatio=out$yVar/out$xVar
+	out$VarRatio=DiffFun(out$yVar,out$xVar)
 	return(out)
+}
+
+radianDiffs <- function(x,y) {
+	diffs=x-y
+	test=diffs>pi
+	diffs[test]=2*pi-diffs[test]
+	return(diffs)
 }
 
 setColNames <- function (x,y) {

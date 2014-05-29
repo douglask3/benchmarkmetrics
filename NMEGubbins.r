@@ -1,6 +1,7 @@
 setNMEclassVars <- function(x,y,w,varFun=absVar,...) {
 	out=NMEGubbins(x,y,w,...)
-	out=setMetClassInfo(out,x,y,w,varFun=varFun)
+	
+	out=setMetClassInfo(out,x,y,w,varFun=absVar)
 	
 	class(out)="NME"
 	return(out)
@@ -39,18 +40,22 @@ print.NME <- function(x, ...) {
 	cat("\nScores:\n")
 	cat("Step1\t\tStep2\t\tStep3\n")
 	
+	cat.NME.scores(x)
+}
+
+cat.NME.scores <- function(x) {
+	cat("Step1\t\tStep2\t\tStep3\n")
+	
 	scores=paste(standard.round(x$step1),
 				 standard.round(x$step2),
 				 standard.round(x$step3),sep="\t\t")
 	cat(scores)
 }
 
+
 summary.NME <- function(x, ...) {
 	summ=basic.summaryInfo(x)
-	
-	summ$Scores=c(x$step1,x$step2,x$step3)
-	names(summ$Scores)=paste('Step',1:3)
-	
+	summ$Scores=scores.summaryInfo(x)
 	return(summ)
 }
 
@@ -62,10 +67,48 @@ basic.summaryInfo <- function(x) {
 		 	  xVariance=x$xVar,
 		 	  yVariance=x$yVar,
 		 	  "x:y Variance ratios"=x$VarRatio)
-	if (length(as.character(x$call))<4) summ=c(summ,weights='non-defined')
-		else summ=c(summ,weights='defined')
+	
+	summ=determinIfWeightsUsed(x,summ)
 	class(summ)="listofMetric"
 	return(summ)
+}
+
+determinIfWeightsUsed <- function(x,summ) {
+	if (length(as.character(x$call))<4) return(c(summ,weights='non-defined'))
+		else return(c(summ,weights='defined'))
+}
+
+print.listofMetric  <- function(x,...) {
+	printSingle.listofMetric <- function(x, ...) {
+	nn <- names(x)
+    ll <- length(x)
+    if (length(nn) != ll) 
+        nn <- paste("Component", seq.int(ll))
+    for (i in seq_len(ll)) {
+        cat(nn[i], ":\n")
+        
+        if (is.numeric(x[[i]])) {
+        	
+        	if (length(x[[i]])==1) {
+        		cat("\t")
+        		cat(standard.round (x[[i]]), ...)
+        	} else print(standard.round (x[[i]]), ...)
+        }	else cat("\t",x[[i]])
+        cat("\n\n")
+    }
+    invisible(x)
+	
+	}
+
+	lapply(x,printSingle.listofMetric)
+	invisible(x)
+}
+
+
+scores.summaryInfo <- function(x) {
+	Scores=c(x$step1,x$step2,x$step3)
+	names(Scores)=paste('Step',1:3)
+	return(Scores)
 }
 
 plot.NME <- function(x,...)  plot(x$x,x$y,cex=x$w,...)
