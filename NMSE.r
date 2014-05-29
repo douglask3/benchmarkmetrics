@@ -8,5 +8,3 @@ NMSE.default <- function(x,y,w=NULL) {
 	return(out)
 }
 
-
-

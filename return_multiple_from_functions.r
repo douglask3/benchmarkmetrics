@@ -12,4 +12,5 @@
 		rhs = c(rhs, rep(list(NULL), length(lhs) - length(rhs)))
 	for (i in 1:length(lhs))
 		do.call(`=`, list(lhs[[i]], rhs[[i]]), envir=frame)
-	return(invisible(NULL)) }
+	return(invisible(NULL))
+}
