@@ -1,43 +1,19 @@
 \name{atans}
 \alias{atans}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{
-%%  ~~function to do ... ~~
-}
-\description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+\title{Performing a full circle arc-tangent}
+\description{The arc-tangent of two vectors, x and y, returns the angle between the x-axis and the vector from the origin to (x, y), i.e., for positive arguments atan2(y, x) == atan(y/x). Equivalent to atan2, but allows conversion into different angle measures.}
 \usage{
 atans(x, y, units = "months")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
-}
-  \item{y}{
-%%     ~~Describe \code{y} here~~
-}
-  \item{units}{
-%%     ~~Describe \code{units} here~~
-}
-}
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
-\value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
+  \item{x}{a scalar,vector or array with each value representing a the x position of the coridiantes (x,y)}
+  \item{y}{sclar, vector or array with same dimeneions as x, reprenting the y poistion in (x,y)}
+  \item{units}{How the resultant angle should be measured. See value for more information}
+
+\value{The angle, or phase,  between the origin and points (xi,yi) for each element in x and y. Dimensions are the same as x and y. Expressed in units as described by 'units'. units='months' is the default, and returns fractional months between 0 and 12 (0 representing the x-axis). 'radians' returns radians. 'degrees' return degrees.}
+\author{Douglas Kelley}
 \note{
 %%  ~~further notes~~
 }
@@ -48,47 +24,11 @@ atans(x, y, units = "months")
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x, y, units = "months") 
-{
-    if (class(x) == "RasterLayer") 
-        phase_out = x[[1]]
-    if (class(x) == "RasterLayer") 
-        x = as.matrix(x)
-    if (class(y) == "RasterLayer") 
-        y = as.matrix(y)
-    phase = atan(x/y)
-    test = (x > 0) + (y < 0)
-    phase[which(test == 2)] = pi + phase[which(test == 2)]
-    test = (x == 0) + (y < 0)
-    phase[which(test == 2)] = pi
-    test = (x < 0) + (y < 0)
-    phase[which(test == 2)] = -pi + phase[which(test == 2)]
-    test = (x < 0) + (y == 0)
-    phase[which(test == 2)] = -pi/2
-    if (units == "months") {
-        phase = 6 * (phase/pi) + 6
-    }
-    else if (units == "degrees") {
-        phase = phase + pi
-        phase = phase * 360/(2 * pi)
-    }
-    else if (units == "radians") 
-        phase = phase + pi
-    if (class(x) == "RasterLayer") {
-        values(phase_out) = phase
-        return(phase_out)
-    }
-    else {
-        return(phase)
-    }
-  }
+	x <- array(1:24,dim=c(2,3,4))
+	x <- array(rev(1:24),dim=c(2,3,4))
+	phase <- atans(x,y)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
+\keyword{ ~math }
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
