@@ -1,1 +1,1 @@
-exportPattern("^[[:alpha:]]+")
+export(MM,MPD,NME,NMSE,SCD,atans,plot.MM,plot.NME,seasonal_concentration_and_phase.Rd,summary.MM,sumery.MDP,summary.NME)
