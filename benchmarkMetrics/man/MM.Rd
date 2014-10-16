@@ -1,27 +1,22 @@
 \name{MM}
 \alias{MM}
+\alias{MM.default}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{
-%%  ~~function to do ... ~~
-}
-\description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
-\usage{
-MM(x, ...)
-}
+\title{Manhattan Metric}
+\description{Performs the Manhattan Metric comparison between modelled and observed data on fractional-type items.}
+\usage{MM(x,y,w=NULL)}
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
+  \item{x}{matrix,array, data.frame, raster or raster stack,representing a list of observations. 
+           The last dimension represents the fractional items, whilst all other dimenstions 
+           represent different realisations of these items}
+  \item{y}{matrix,array, data.frame, raster or raster stack of same size as x representing modelled}
+  \item{w}{vector, matrix or raster of weights. If NULL, all items are considered equally. 
+           If a vector, must by the same length as first dimension of x and represents the
+           weight of each point. If matrix or raster, than weight for each point and item.}
 }
-  \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
-}
-}
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+\details{if x and y are 2-dimensional, rows represent 'points', columns represent items. Items for each
+         'point' are normalised before metric comparison is made.}
 \value{
 %%  ~Describe the value returned
 %%  If it is a LIST, use
