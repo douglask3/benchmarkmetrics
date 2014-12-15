@@ -20,12 +20,7 @@ License: \tab What license is it under?\cr
 }
 ~~ An overview of how to use the package, including the most important functions ~~
 }
-\author{
-Who wrote it
-
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
-}
+\author{Douglas Kelley \email{douglaskelley3@gmail.com}}
 \references{
 ~~ Literature or other references for background information ~~
 }

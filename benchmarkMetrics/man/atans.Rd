@@ -13,7 +13,7 @@ atans(x, y, units = "months")
   \item{units}{How the resultant angle should be measured. See value for more information}
 
 \value{The angle, or phase,  between the origin and points (xi,yi) for each element in x and y. Dimensions are the same as x and y. Expressed in units as described by 'units'. units='months' is the default, and returns fractional months between 0 and 12 (0 representing the x-axis). 'radians' returns radians. 'degrees' return degrees.}
-\author{Douglas Kelley}
+\author{Douglas Kelley \email{douglaskelley3@gmail.com}}
 \note{
 %%  ~~further notes~~
 }
@@ -25,7 +25,7 @@ atans(x, y, units = "months")
 }
 \examples{
 	x <- array(1:24,dim=c(2,3,4))
-	x <- array(rev(1:24),dim=c(2,3,4))
+	y <- array(rev(1:24),dim=c(2,3,4))
 	phase <- atans(x,y)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

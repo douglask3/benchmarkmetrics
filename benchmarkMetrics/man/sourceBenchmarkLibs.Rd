@@ -35,9 +35,7 @@ sourceBenchmarkLibs(path = "../libs/", local = TRUE, ...)
 \references{
 %% ~put references to the literature/web site here ~
 }
-\author{
-%%  ~~who you are~~
-}
+\author{Douglas Kelley \email{douglaskelley3@gmail.com}}
 \note{
 %%  ~~further notes~~
 }
