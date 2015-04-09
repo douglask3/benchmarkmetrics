@@ -1,12 +1,15 @@
 \name{MM}
 \alias{MM}
 \alias{MM.default}
-\alias{MPD}
-\alias{MPD.default}
+\alias{SCD}
+\alias{SCD.default}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Manhattan Metric}
-\description{Performs the Manhattan Metric comparison between modelled and observed data on fractional-type items.}
-\usage{MM(x,y,w=NULL)}
+\description{Performs the Manhattan Metric (MM) and Square Chord Distance (SCD) comparison between modelled and observed data on fractional-type items.}
+\usage{
+  MM (x,y,w=NULL)
+  SCD(x,y,w=NULL)
+}
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x, y}{matrix, data.frame, raster or raster stack,representing a list of observations. 
@@ -51,12 +54,12 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
   weights = apply(Obs,1,sum)
   
   m = MM(Obs,Mod,weights)
-  
   m
-  
   summary(m)
-  
   plot(m)
+  
+  m = SCD(Obs,Mod,weights)
+  summary(m)
   
   ## Schuur E. A. G., Matson P. A. 2001 Net primary productivity and nutrient cycling across a mesic to wet precipitation gradient in Hawaiian montane forest. Oecologia 128, 431-442. doi:10.1007/s004420100671
   ## Mcmurtrie, R. E., & Comins, H. N. (1996). The temporal response of forest ecosystems to doubled atmospheric CO2 concentration. Global Change Biology, 2(1), 49-57.
