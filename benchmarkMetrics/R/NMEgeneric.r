@@ -3,15 +3,12 @@ print.NME <- function(x, ...) {
 	print(x$call)
 
 	cat("\nScores:\n")
-	cat("Step1\t\tStep2\t\tStep3\n")
-	
 	cat.NME.scores(x)
 }
 
-
 summary.NME <- function(x, ...) {
 	summ=basic.summaryInfo(x)
-	summ$Scores=scores.summaryInfo(x)
+    summ=c(summ,Scores=scores.summaryInfo(x))
 	return(summ)
 }
 

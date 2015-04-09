@@ -29,5 +29,5 @@ determinIfWeightsUsed <- function(x,summ) {
 scores.summaryInfo <- function(x) {
 	Scores=c(x$step1,x$step2,x$step3)
 	names(Scores)=paste('Step',1:3)
-	return(Scores)
+	return(list(Scores))
 }
