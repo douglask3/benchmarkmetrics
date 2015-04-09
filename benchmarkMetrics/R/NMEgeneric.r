@@ -14,12 +14,13 @@ summary.NME <- function(x, ...) {
 
 plot.NME <- function(x,...)  {
     cols=c('red','green','blue')
+    pchs=c(19,4,1)
     
-    plot(range(x$x123),range(x$y123),type='n')
+    plot(range(x$x123),range(x$y),type='n',xlab='x',ylab='y')
     lines(c(-9E9,9E9),c(-9E9,9E9),lty=2)
+    
     for (i in 1:3)
-        points(x$x123[,i],x$y123[,i],pch=19,
-               col=cols[i])
+        points(x$x123[,i],x$y,pch=pchs[i],col=cols[i])
                
-    legend('topleft',paste('Step',1:3),pch=19,col=cols)
+    legend('topleft',paste('Step',1:3),pch=pchs,col=cols)
 }
