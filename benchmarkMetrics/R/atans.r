@@ -6,17 +6,15 @@ atans <- function(x,y,units='months') {
     
     phase=atan(x/y)
     
-    test=(x>0)+(y<0);
-    phase[which(test==2)]=pi+phase[which(test==2)];
-
-    test=(x==0)+(y<0);
-    phase[which(test==2)]=pi;
-
-    test=(x<0)+(y<0);
-    phase[which(test==2)]=-pi+phase[which(test==2)];
-
-    test=(x<0)+(y==0);
-    phase[which(test==2)]=-pi/2;
+    manipulate2atans <- function(test,pifact=1,phfact=1) {
+        phase[test]=pifact*pi+phfact*phase[test]
+        return(phase)
+    }
+    
+    phase=manipulate2atans((x> 0) & (y< 0))
+    phase=manipulate2atans((x==0) & (y< 0), 1/2)
+    phase=manipulate2atans((x< 0) & (y< 0),-1)
+    phase=manipulate2atans((x< 0) & (y==0),-1/2,0)
 
     if (units=='months') {
       phase=6*(phase/pi)+6;
