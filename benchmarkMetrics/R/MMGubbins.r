@@ -17,7 +17,6 @@ check.and.norm.performMM <- function(x,y,w,...) {
 setMMclassVars <- function(x,y,w,varFun=absVar,metFun=MMForm,...) {
 	
 	out=list(score=metFun(x,y,w,...))
-	
 	out=setMetClassInfo(out,x,y,w,varFun=varFun,itemize=TRUE)
 	
 	class(out)="MM"
