@@ -3,6 +3,9 @@
 \alias{MM.default}
 \alias{SCD}
 \alias{SCD.default}
+\alias{print.MM}
+\alias{summary.MM}
+\alias{plot.MM}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Manhattan Metric/ Square Chord Distance}
 \description{Performs the Manhattan Metric (MM) and Square Chord Distance (SCD) comparison between modelled and observed data on fractional-type items.}
@@ -41,13 +44,14 @@ If x and y are 2-dimensional, rows represent 'points', columns represent items. 
 \value{
 MM and SCD returns an object of class "MM".
 
-The  \code{\link{print}} print function (i.e \code{\link{print.MM}}) returns the call information and score
+The  \code{\link{print}} print function returns the call information and score
 
-The function \code{\link{summary}} (i.e., \code{\link{summary.MM}}) can be used to obtain information on individual item means and variances for both x and y, as well as the ratio of x and ys mean and variance.
+The function \code{\link{summary}} can be used to obtain information on individual item means and variances for both x and y, as well as the ratio of x and ys mean and variance.
 
-The \code{\link{plot}} function (i.e \code{\link{plot.MM}}) plots the items in a scatter plot.
+The \code{\link{plot}} function plots the items in a scatter plot.
 
 }
+
 \references{
 Cha, S.-H. (2007). Comprehensive survey on distance/similarity measures between probability density functions. City, 1(2), 1.
 
@@ -55,6 +59,7 @@ Gavin, D. G., Oswald, W. W., Wahl, E. R., & Williams, J. W. (2003). A statistica
 
 Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J. B., & Willis, K. O. (2013). A comprehensive benchmarking system for evaluating global vegetation models. Biogeosciences, 10(5), 3313-3340. doi:10.5194/bg-10-3313-2013
 }
+
 \author{Douglas Kelley \email{douglas.i.kelley@gmail.com}}
 
 \seealso{
