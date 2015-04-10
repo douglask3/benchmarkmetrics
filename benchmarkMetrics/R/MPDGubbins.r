@@ -16,7 +16,6 @@ MPDonly <- function(x,y,w,..) {
 	return(Phase)
 }
 
-
 phaseAVar <- function(x) {
 	diffs=abs(x-mean(x))
 	test=diffs>(pi)
