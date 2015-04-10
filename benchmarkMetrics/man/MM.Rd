@@ -79,6 +79,7 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
   ## Weight are total NPP of each measure
   weights = apply(Obs,1,sum)
   
+  ## Perform and display comparison
   m = MM(Obs,Mod,weights)
   m
   summary(m)
@@ -86,6 +87,17 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
   
   m = SCD(Obs,Mod,weights)
   summary(m)
+  
+  ## Items from raster brick, taken from ?brick
+  b = brick(system.file("external/rlogo.grd", package="raster"))
+  
+  br   = b
+  br[] = b[sample(1:ncell(b))]
+  
+  m = MM(b,br)
+  
+  summary(m)
+  plot(m)
   
   ## Schuur E. A. G., Matson P. A. 2001 Net primary productivity and nutrient cycling across a mesic to wet precipitation gradient in Hawaiian montane forest. Oecologia 128, 431-442. doi:10.1007/s004420100671
   ## Mcmurtrie, R. E., & Comins, H. N. (1996). The temporal response of forest ecosystems to doubled atmospheric CO2 concentration. Global Change Biology, 2(1), 49-57.

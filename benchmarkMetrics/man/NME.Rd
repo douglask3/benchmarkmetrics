@@ -108,6 +108,20 @@ Nash, Je., & Sutcliffe, J. V. (1970). River flow forecasting through conceptual 
   mtext("with")
   plot(without)
   mtext("without")
+  
+  
+  ## Example taken from ?brick
+  require(raster)
+  b = brick(system.file("external/rlogo.grd", package="raster"))
+  
+  m2 = NME(b[[1]],b[[2]])
+  m3 = NME(b[[1]],b[[3]])
+  
+  par(mfrow=c(2,1))
+  plot (m2)
+  mtext("2")
+  plot (m3)
+  mtext("3")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
