@@ -5,7 +5,7 @@ structure.inputs.performNME <- function(x,y,w,...) {
 }
 
 setNMEclassVars <- function(x,y,w,varFun=absVar,...) {
-	out=NMEGubbins(x,y,w,...)
+	out=NMEGubbins(x,y,w,varFun=varFun,...)
 	out=setMetClassInfo(out,x,y,w,varFun=absVar)
 	
 	class(out)="NME"
