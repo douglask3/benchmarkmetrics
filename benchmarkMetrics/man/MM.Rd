@@ -89,13 +89,17 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
   summary(m)
   
   ## Items from raster brick, taken from ?brick
+  ## 3-item brick
   b = brick(system.file("external/rlogo.grd", package="raster"))
   
+  ## randomizd 3-item brick
   br   = b
   br[] = b[sample(1:ncell(b))]
   
+  ## metric comparison
   m = MM(b,br)
   
+  ## Display results
   summary(m)
   plot(m)
   
