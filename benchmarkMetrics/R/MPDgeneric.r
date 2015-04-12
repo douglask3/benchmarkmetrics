@@ -28,3 +28,32 @@ summary.MPD <- function(x, ...) {
 	class(summ) <- 'listofMetric'
 	return(summ)
 }
+
+plot.MPD <- function(x,...) {
+    xc=x[[1]]$x
+    yc=x[[1]]$y
+    
+    xl=x[[2]]$x
+    yl=x[[2]]$y
+    
+    cols=colorRampPalette(c("#EEEEEE","#777777"))(180)
+    
+    dl = abs(xl-yl)
+    dc  = abs(xc-yc)
+    
+    dc=round(180*dc/pi); dc[dc>360]=dc[dc>360]-360
+    
+    cols=colorRampPalette(c("#000099","#990000","#000099"))(360)
+    cols=makeTransparent(cols[dc],0.9*(1-dl/max(dl)))
+    
+    graphics.off()
+    l=c(xl,yl); cn=c(xc,yc); symb=c(rep(c(4,16),each=length(xl)))
+    radial.plot(l,cn,line.col=cols,point.symbols=symb,point.col=cols,rp.type="rs",...)
+    
+}
+
+makeTransparent <- function(col, transparency) {
+     ## Semitransparent colours
+     tmp <- col2rgb(col)/255
+     rgb(tmp[1,], tmp[2,], tmp[3,], alpha=1-transparency)
+}
