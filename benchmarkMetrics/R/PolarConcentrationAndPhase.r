@@ -11,7 +11,6 @@ PolarConcentrationAndPhase <- function(cdata,phase_units="radians",n=dim(cdata)[
     
     adata = apply(cdata,1,sum)
     
-    phase = atans(0 - ydata, 0 - xdata, phase_units)
     phase = atans(-ydata, xdata, phase_units)
     conc  = sqrt (xdata^2 + ydata^2) / adata
     return(list(phase, conc))
