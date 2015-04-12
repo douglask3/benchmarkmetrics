@@ -5,8 +5,8 @@ setMPDclassVars <- function(x,y,w,...) {
 }
 
 MPDGubbins <- function(x,y,w,metFun=NMEForm,...) {
-	c(xp,xc):=PeriodConcentrationAndPhase(x)
-	c(yp,yc):=PeriodConcentrationAndPhase(y)
+	c(xp,xc):=PolarConcentrationAndPhase(x)
+	c(yp,yc):=PolarConcentrationAndPhase(y)
 	return(list(Phase=MPDonly(xp,yp,w),Concentration=NME(xc,yc,w)))
 }
 

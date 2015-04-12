@@ -1,14 +1,13 @@
-\name{PeriodConcentrationAndPhase}
-\alias{PeriodConcentrationAndPhase}
-%- Also NEED an '\alias' for EACH other topic documented here.
+\name{PolarConcentrationAndPhase}
+\alias{PolarConcentrationAndPhase}
 \title{
-%%  ~~function to do ... ~~
+  Polar Concentration And Phase
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+  Calculates the concentration and phase of a polar
 }
 \usage{
-seasonal_concentration_and_phase(cdata, phase_units = "radians")
+PolarConcentrationAndPhase(cdata, phase_units = "radians")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
