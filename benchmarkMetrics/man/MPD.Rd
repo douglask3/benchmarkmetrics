@@ -22,27 +22,7 @@ MPD(x, y, w=NULL, ...)
 }
 }
 \details{
-Each simulated or observed timestep (e.g month) with in the period (i.e year) is represented by a vector in the complex plane, the length of the vector corresponding to the magnitude of the variable for each period and the directions of the vector corresponding to the timeing within the period. It is assumed each timestep is uniformly distributed:
-\deqn{
-  \theta_{t} =2\pi \left( {t-1} \right)/n,
-}
-
-where \equ{n} is the number of timesteps \equ{t} in the period.
-
-A mean vector L is calculated by averaging the real and imaginary parts of the n vectors, \eqn{x_{t}$}.
-\deqn{
-L_{x} =\sum\nolimits_t {x_{t} \cos \left( {\theta_{t} }
-\right)}~~\text{and}~~L_{y} =\sum\nolimits_t {x_{t} \sin \left( {\theta_{t} }
-\right)}
-}
-The length of the mean vector divided by the annual value stands for seasonal concentration, \equ{C}; its direction stands for phase, \eqn{P}:
-\deqn{
-  C=\frac{\sqrt {L_{x}^{2} +L_{y}^{2} } }{\sum\nolimits_t {x_{t} }};
-}
-\deqn{
-  P=\arctan \left( {L_{x} /L_{y} } \right).
-}
-Thus, if the variable is concentrated all in one month, seasonal concentration is equal to 1 and the phase corresponds to that month. If the variable is evenly spread over all months, then concentration is equal to zero and phase is undefined. If either modelled or observed values have zero
+Each simulated or observed timestep (e.g month) with in the period (i.e year) is represented by a vector in the complex plane, which is split into phase and concontration components as descibed in \link{\code{PolarConcentrationAndPhase}}. If the variable is concentrated all in one point within the polar coordinates, seasonal concentration is equal to 1 and the phase corresponds to that month. If the variable is evenly spread over all coordinates, then concentration is equal to zero and phase is undefined. If either modelled or observed values have zero
 values for all months in a given cell or site, then that cell/site is not included in the comparisons. Concentration comparisons are performed using \code{\link{NME}}. Modelled and observed phase are compared using mean phase difference:
 \deqn{
 mpd=\left( {1/\pi } \right)\arccos \left[ {\cos \left( {\omega_{i}
