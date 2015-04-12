@@ -2,6 +2,7 @@
 \alias{MPD}
 \alias{summary.MPD}
 \alias{print.MPD}
+\alias{plot.MPD}
 
 \title{
   Mean Phase and Concentration Difference
