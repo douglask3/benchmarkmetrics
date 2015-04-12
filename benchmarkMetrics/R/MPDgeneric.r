@@ -52,6 +52,9 @@ plot.MPD <- function(x,...) {
     
 }
 
+score.MPD <- function(x,..)
+     c(phase=x[[1]][[1]],unlist(x[[2]][1:3]))
+
 makeTransparent <- function(col, transparency) {
      ## Semitransparent colours
      tmp <- col2rgb(col)/255
