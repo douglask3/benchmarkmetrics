@@ -1,4 +1,4 @@
-seasonal_concentration_and_phase <- function(cdata,phase_units="radians",n=dim(cdata)[2]) {
+PeriodConcentrationAndPhase <- function(cdata,phase_units="radians",n=dim(cdata)[2]) {
     a=dim(cdata)[2]
     
     xdata=ydata=matrix(0,dim(cdata)[1],1)
