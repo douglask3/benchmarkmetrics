@@ -1,4 +1,4 @@
-print.nullModel <- function(x,...) {
+print.nullModel <- function(x,...) {    
     cat("Mean mode score:\n\t\t")
     cat(standard.round(x[[1]]))
     
@@ -68,3 +68,4 @@ nullModelLegend <- function() {
     lty[length(lty)]=0
    
     legendStandard(lty=lty,pch=15,col=col,y.intersp=c(rep(1,4),0.97))
+}
