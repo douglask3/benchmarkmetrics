@@ -1,3 +1,5 @@
+score <- function(x, ...) UseMethod("score")
+
 cat.NME.scores <- function(x) {
 	cat("Step1\t\tStep2\t\tStep3\n")
 	

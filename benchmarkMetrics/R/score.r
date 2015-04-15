@@ -1,1 +1,0 @@
-score <- function(x, ...) UseMethod("score")
