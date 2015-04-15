@@ -22,3 +22,7 @@ plot.MM <- function(x,...)  {
         points(x$x[,i],x$y[,i],col=cols[i],pch=19,cex=x$w[i]/maxw) 
     legend(legend=names(x$xMean),x='topright',pch=19,col=cols,title='items')
 }
+
+score.MM <- function(x, ...) unlist(x[1])
+
+null.MM  <- function(x, ...) null.FUN(x, MM, items=TRUE, ...)

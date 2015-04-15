@@ -29,3 +29,7 @@ plot.NME <- function(x,...)  {
 
     legend('topleft',paste('Step',1:3),col=cols,bty='n',pch=pchs,lty=1)
 }
+
+score.NME <- function(x, ...) unlist(x[1:3])
+
+null.NME  <- function(x, ...) null.FUN(x, NME, items=FALSE, ...)

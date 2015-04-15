@@ -48,12 +48,15 @@ plot.MPD <- function(x,...) {
     
     graphics.off()
     l=c(xl,yl); cn=c(xc,yc); symb=c(rep(c(4,16),each=length(xl)))
-    radial.plot(l,cn,line.col=cols,point.symbols=symb,point.col=cols,rp.type="rs",...)
+    radial.plot(l,cn,line.col=cols,point.symbols=symb,
+                point.col=cols,rp.type="rs",...)
     
 }
 
-score.MPD <- function(x,..)
+score.MPD <- function(x, ..)
      c(phase=x[[1]][[1]],unlist(x[[2]][1:3]))
+     
+null.MPD <- function(x, ...) null.FUN(x, MPD, items=TRUE, ...)
 
 makeTransparent <- function(col, transparency) {
      ## Semitransparent colours
