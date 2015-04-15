@@ -26,9 +26,9 @@ print.NullModelSummary <- function(x) {
     cat (x[3])
 }
 
-plot.nullModel <- function(x,xlab='',ylab='',...) {
+plot.nullModel <- function(x,xlab='',ylab='',main='Null Model Results',...) {
     # Plot histergram of random model
-    hist(x[[2]],ceiling(length(x[[2]])/10),yaxt='n',xlab=xlab,ylab=ylab)
+    hist(x[[2]],ceiling(length(x[[2]])/10),yaxt='n',xlab=xlab,ylab=ylab,main=main)
     
     # Calculate summary of null scores
     x=summary(x)
@@ -46,6 +46,8 @@ plot.nullModel <- function(x,xlab='',ylab='',...) {
     verLine(x[2])
     verLine(x[2]-x[3],lty=2)
     verLine(x[2]+x[3],lty=2)
+    
+    nullModelLegend()
 }
 
 nullModelLegend <- function() {
