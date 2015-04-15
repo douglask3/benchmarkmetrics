@@ -1,5 +1,4 @@
 structure.inputs <- function(x,y,w,itemize=FALSE) {	    
-    
     x <- as.matrix(x)
 	y <- as.matrix(y)
     
@@ -10,7 +9,6 @@ structure.inputs <- function(x,y,w,itemize=FALSE) {
     
     if (!itemize) c(x,y,w):=lapply(list(x,y,w),function(i)
                                                 matrix(i,ncol=1))
-    
 	return(list(x,y,w))
 }
 
