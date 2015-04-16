@@ -1,12 +1,15 @@
 print.nullModel <- function(x,...) {    
     cat("Mean mode score:\n\t\t")
-    cat(standard.round(x[[1]]))
+    cat(standard.round(x[[1]]),"\n\n")
+   
+    cat("Rand-Resampling scores:\n\t\t")
     
-    cat("Rand-Resampling scores:\n\t\t:")
-    if (class(x) == "matrix") {
+    if (class(x[[2]]) == "matrix") {
         pr = apply(x[[2]], 1, standard.round)
-        printStep <- function(i) cat(paste("Step",i,"\n"),pr[,i],"\n\n")
-        lapply(1:3,printStep)
+        printStep <- function(i)
+            cat(colnames(pr)[i],"\n\t",pr[,i],"\n\n")
+        
+        lapply(1:ncol(pr),printStep)
     } else cat(standard.round(x[[2]]))  
 }
 
@@ -31,12 +34,13 @@ print.NullModelSummary <- function(x) {
     if (class(x[1])=="list") {cat("Mean Model\n\t"); print(x[[1]])} else print(x[1])
     
     printRand <- function(a,b,c) {
-        if (!is.null(a)) cat("\tStep ",a,"\n")
+        if (!is.null(a)) cat(a,"\n")
         cat("\t\t",b," +/- ",c,"\n")
     }
     
     cat ("Random Model\n\t\t(Mean +/- sd)\n")
-    if (class(x)=="list") mapply(printRand,1:3,x[[2]],x[[3]])
+    
+    if (class(x)=="list") mapply(printRand,names(x[[2]]),x[[2]],x[[3]])
         else  printRand(NULL,x[2],x[3])
 }
 
