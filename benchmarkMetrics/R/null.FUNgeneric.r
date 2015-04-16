@@ -3,27 +3,41 @@ print.nullModel <- function(x,...) {
     cat(standard.round(x[[1]]))
     
     cat("Rand-Resampling scores:\n\t\t:")
-    cat(standard.round(x[[2]]))
+    if (class(x) == "matrix") {
+        pr = apply(x[[2]], 1, standard.round)
+        printStep <- function(i) cat(paste("Step",i,"\n"),pr[,i],"\n\n")
+        lapply(1:3,printStep)
+    } else cat(standard.round(x[[2]]))  
 }
 
 summary.nullModel <- function(x,...) {
-    modSum=c("Mean Model"             =        x[[1]],
-             "Mean Random-Resampling" =   mean(x[[2]]),
-             "sd Randon Resampling"   =   sd  (x[[2]]))
+    if (length(x[[1]])>1) comb=list else comb=c
     
-    class(modSum)="NullModelSummary"
-    return(modSum)    
+    if (class(x[[2]])!='matrix') x[[2]]=t(as.matrix(x[[2]]))
+   
+    modSum=comb("Mean Model"             =        x[[1]],
+                "Mean Random-Resampling" =  apply(x[[2]],1,mean),
+                "sd Randon Resampling"   =  apply(x[[2]],1,sd  ))
+    
+    class (modSum)="NullModelSummary"
+    return(modSum)
 }
 
 print.NullModelSummary <- function(x) {
-    x=standard.round(x)
+   
+    if (class(x[1])=="list") fun=lapply else fun=sapply
+    x=fun(x,standard.round)
     
-    print(x[1])
+    if (class(x[1])=="list") {cat("Mean Model\n\t"); print(x[[1]])} else print(x[1])
     
-    cat ("Random Model\n\t\t(Mean +/- sd)\n\t\t ")
-    cat (x[2])
-    cat (" +/- ")
-    cat (x[3])
+    printRand <- function(a,b,c) {
+        if (!is.null(a)) cat("\tStep ",a,"\n")
+        cat("\t\t",b," +/- ",c,"\n")
+    }
+    
+    cat ("Random Model\n\t\t(Mean +/- sd)\n")
+    if (class(x)=="list") mapply(printRand,1:3,x[[2]],x[[3]])
+        else  printRand(NULL,x[2],x[3])
 }
 
 plot.nullModel <- function(x,xlab='',ylab='',main='Null Model Results',...) {
