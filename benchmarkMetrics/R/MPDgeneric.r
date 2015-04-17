@@ -57,7 +57,6 @@ score.MPD <- function(x, ..) {
     return(c(phase = x[[1]][[1]], concentration = unlist(x[[2]][index])))
 }
 
-
 null.MPD <- function(x, ...) null.FUN(x, MPD, items = TRUE, step1only = TRUE, ...)
 
 makeTransparent <- function(col, transparency) {
