@@ -1,8 +1,8 @@
 print.nullModel <- function(x,...) {    
-    cat("Mean mode score:\n\t\t")
+    cat("Mean model score:\n\t\t")
     cat(standard.round(x[[1]]),"\n\n")
    
-    cat("Rand-Resampling scores:\n\t\t")
+    cat("Rand-Resampling model scores:\n\t\t")
     
     if (class(x[[2]]) == "matrix") {
         pr = apply(x[[2]], 1, standard.round)
