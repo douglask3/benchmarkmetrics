@@ -6,15 +6,17 @@ structure.inputs.performNME <- function(x,y,w,...) {
 
 setNMEclassVars <- function(x,y,w,varFun=absVar,...) {
 	out=NMEGubbins(x,y,w,varFun=varFun,...)
-	out=setMetClassInfo(out,x,y,w,varFun=absVar)
-	
+    out=setMetClassInfo(out,x,y,w,varFun=absVar)
+    
 	class(out)="NME"
 	return(out)
 }
 
-NMEGubbins <- function(x,y,w,metFun=NMEForm,varFun=absVar) {
+NMEGubbins <- function(x,y,w,metFun=NMEForm,varFun=absVar,step1only=FALSE) {
 	NME1 = metFun(x,y,w)
-	
+    
+    if (step1only) return(list(score=NME1))
+    
 	x2   = MeanSub(x ,y)
 	NME2 = metFun (x2,y,w)
 	
