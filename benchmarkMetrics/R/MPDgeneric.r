@@ -50,13 +50,15 @@ plot.MPD <- function(x,...) {
     l=c(xl,yl); cn=c(xc,yc); symb=c(rep(c(4,16),each=length(xl)))
     radial.plot(l,cn,line.col=cols,point.symbols=symb,
                 point.col=cols,rp.type="rs",...)
-    
 }
 
-score.MPD <- function(x, ..)
-     c(phase=x[[1]][[1]],unlist(x[[2]][1:3]))
-     
-null.MPD <- function(x, ...) null.FUN(x, MPD, items=TRUE, ...)
+score.MPD <- function(x, ..) {
+    if (names(x[[2]][2]) == "x") index = 1 else index = 1:3
+    return(c(phase = x[[1]][[1]], concentration = unlist(x[[2]][index])))
+}
+
+
+null.MPD <- function(x, ...) null.FUN(x, MPD, items=TRUE, step1only=TRUE, ...)
 
 makeTransparent <- function(col, transparency) {
      ## Semitransparent colours
