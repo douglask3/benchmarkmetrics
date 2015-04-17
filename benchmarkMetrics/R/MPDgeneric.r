@@ -58,7 +58,7 @@ score.MPD <- function(x, ..) {
 }
 
 
-null.MPD <- function(x, ...) null.FUN(x, MPD, items=TRUE, step1only=TRUE, ...)
+null.MPD <- function(x, ...) null.FUN(x, MPD, items = TRUE, step1only = TRUE, ...)
 
 makeTransparent <- function(col, transparency) {
      ## Semitransparent colours
