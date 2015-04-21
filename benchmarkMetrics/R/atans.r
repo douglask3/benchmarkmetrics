@@ -1,7 +1,8 @@
 atans <- function(x,y,units='months',revs=FALSE) {
     if (class(x)=="RasterLayer") phase_out=x[[1]]
     
-    if (class(x)=="RasterLayer") x=as.matrix(x)
+    classX=class(x)
+    if (classX  =="RasterLayer") x=as.matrix(x)
     if (class(y)=="RasterLayer") y=as.matrix(y)
     
     phase=atan2(x,y)
@@ -13,7 +14,7 @@ atans <- function(x,y,units='months',revs=FALSE) {
       phase=phase*360/(2*pi)
     } else if (units=='radians') phase=phase
             
-    if (class(x)=="RasterLayer") {
+    if (classX=="RasterLayer") {
     	values(phase_out)=phase
     	return(phase_out)
     } else {
