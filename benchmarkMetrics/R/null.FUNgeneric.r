@@ -1,8 +1,8 @@
 print.nullModel <- function(x,...) {    
-    cat("Mean model score:\n\t\t")
-    cat(standard.round(x[[1]]),"\n\n")
+    
+    printMultiModelMean(x[[1]])
    
-    cat("Rand-Resampling model scores:\n\t\t")
+    cat("\n\n","Random-Resampling model scores:\n\t\t")
     
     if (class(x[[2]]) == "matrix") {
         pr = apply(x[[2]], 1, standard.round)
@@ -11,6 +11,17 @@ print.nullModel <- function(x,...) {
         
         lapply(1:ncol(pr),printStep)
     } else cat(standard.round(x[[2]]))  
+}
+
+printMultiModelMean <- function(x) {
+    cat("Mean model score:\n\t\t")
+    if (length(x) > 1) {
+        if (names(x[1]) == "phase") {
+            names(x) = c(" ", paste("Step", 1:3))
+            cat("Phase\t\tConcentration\n\t")
+         }
+        print(standard.round(x))
+    } else cat(standard.round(x),"\n")
 }
 
 summary.nullModel <- function(x,...) {
@@ -27,11 +38,10 @@ summary.nullModel <- function(x,...) {
 }
 
 print.NullModelSummary <- function(x) {
-   
-    if (class(x[1])=="list") fun=lapply else fun=sapply
-    x=fun(x,standard.round)
+    printMultiModelMean(x[[1]])
     
-    if (class(x[1])=="list") {cat("Mean Model\n\t"); print(x[[1]])} else print(x[1])
+    if (class(x[2])=="list") fun=lapply else fun=sapply
+    x=fun(x[2:3],standard.round)
     
     printRand <- function(a,b,c) {
         if (!is.null(a)) cat(a,"\n")
@@ -39,18 +49,36 @@ print.NullModelSummary <- function(x) {
     }
     
     cat ("Random Model\n\t\t(Mean +/- sd)\n")
-    
-    if (class(x)=="list") mapply(printRand,names(x[[2]]),x[[2]],x[[3]])
-        else  printRand(NULL,x[2],x[3])
+    if (class(x)=="list") mapply(printRand,names(x[[1]]),x[[1]],x[[2]])
+        else  printRand(NULL,x[1],x[2])
 }
 
-plot.nullModel <- function(x,xlab='',ylab='',main='Null Model Results',...) {
+plot.nullModel <- function(x,main='Null Model Results',...) {
+    if (class(x[[2]])!="matrix") {
+        plot.nullModelInd(x,...)
+    } else {
+        par(mfrow=c(2,1))
+        plotInd <- function(i1,i2,ttl) {
+            xi=list(x[[1]][i1],x[[2]][i2,],x[3])
+            class(xi)=class(x)
+            plot.nullModelInd(xi,main=paste(main,': ',ttl,ep=""),...)
+        }
+        mapply(plotInd,list(1,2:4),1:2,c('phase','concentration'))
+    }
+    invisible()
+}
+    
+
+plot.nullModelInd <- function(x,xlab='',ylab='',main='Null Model Results',...) {
+    
     # Plot histergram of random model
-    hist(x[[2]],ceiling(length(x[[2]])/10),yaxt='n',xlab=xlab,ylab=ylab,main=main)
+    max(hist(x[[2]],ceiling(length(x[[2]])/10),
+             yaxt='n',xlab=xlab,ylab=ylab,main=main)$density)
     
     # Calculate summary of null scores
     x=summary(x)
-    randRange =  x[2]+x[3]*c(-1,1)
+    
+    randRange =  x[[2]]+x[[3]]*c(-1,1)
     
     # Plot std range as oligon
     polygon(rep(randRange,each=2),c(0,1,1,-1)*9E9,
@@ -60,32 +88,51 @@ plot.nullModel <- function(x,xlab='',ylab='',main='Null Model Results',...) {
     #sd range of randon resampled score in dashed blue
     verLine <- function(xi,col='blue',...) lines(rep(xi,2),c(0,9E9),col=col,...)
     
-    verLine(x[1],'red')
-    verLine(x[2])
-    verLine(x[2]-x[3],lty=2)
-    verLine(x[2]+x[3],lty=2)
+    x[[1]]   = x[[1]][!is.na(x[[1]])]
+    x[[1]]   = unlist(lapply(unique(x[[1]]),function(i) x[[1]][x[[1]]==i][1]))
+    meanCols = c('#FF0000','#BBBB00','#00FF00')[1:length(x[[1]])]
+    mapply(verLine, x[[1]], meanCols)
+    verLine(x[[2]])
+    verLine(x[[2]]-x[[3]], lty=2)
+    verLine(x[[2]]+x[[3]], lty=2)
     
-    nullModelLegend()
+    if (length(x[[1]])>1) names(x[[1]])=paste('Step',1:length(x[[1]]))
+    
+    nullModelLegend(meanCols, names(x[[1]]), cex = 0.7)
+    invisible()
 }
 
-nullModelLegend <- function() {
+nullModelLegend <- function(meanCols, meanNames, ...) {
     ## Define legend arrangeent and labels
-     legendStandard <- function(...)  legend('topleft',bty='n',legtxt,...)
+    xl = par("xaxp")[1]
+    yl = par("yaxp")[2]
     
-    legtxt=c('Mean Model','Randon Model',paste('    ',c('frequancy','mean','standard deviation')))
+    legendStandard <- function(...)
+        legend(x=xl, y=yl * 1.2, bty='n', legtxt, xpd=TRUE, ...)
+    
+    legtxt='Mean Model'
+    if (length(meanNames)>1) {
+        legtxt=c(legtxt,paste('    ',meanNames))
+        meanCols=c('transparent',meanCols)
+    }
+         
+    legtxt=c(legtxt,'Randon Model',
+             paste('    ', c('frequancy','mean', 'standard deviation')))
     
     ## Add lines and symbols
-    lty=c(1,0,0,1,2)
-    pch=c(NA,0,0,NA,NA)
-    col=c('red','transparent','black','blue','blue')
-    legendStandard(lty=lty,pch=pch,col=col)
+    lty=c(rep(1,length(meanCols)),0,0,1,2)
+    pch=c(rep(1,length(meanCols)),0,0,NA,NA)
+    
+    col=c(meanCols,'transparent','black','blue','blue')
+    legendStandard(lty=lty,pch=pch,col=col,...)
     
     ## Add polygn shades
     pch=15
-    col = c('transparent','transparent','transparent','blue','blue')
+    col[1:(length(col)-2)] = 'transparent'
     col = makeTransparent(col,0.8)
     legtxt[length(legtxt)]=""
     lty[length(lty)]=0
    
-    legendStandard(lty=lty,pch=15,col=col,y.intersp=c(rep(1,4),0.97))
+    legendStandard(lty=lty,pch=15,col=col,y.intersp=c(rep(1,length(col)-1),0.97),...)
+    invisible()
 }
