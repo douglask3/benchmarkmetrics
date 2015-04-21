@@ -8,7 +8,7 @@ randMod.FUN <- function(x, FUN, nrs=1000, ...) {
         randX = x[sample(1:dim(x)[1]),]
         return(score(FUN (x, randX, ...)))
     }
-    return(sapply(1:nrs,randComp))
+    return(sapply(1:nrs, randComp))
 }
 
 structure.inputs.nulls <- function(x, items = FALSE) {
