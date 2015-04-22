@@ -52,15 +52,15 @@ plot.MPD <- function(x,...) {
                 point.col=cols,rp.type="rs",...)
 }
 
+makeTransparent <- function(col, transparency) {
+     ## Semitransparent colours
+     tmp <- col2rgb(col)/255
+     rgb(tmp[1,], tmp[2,], tmp[3,], alpha=1-transparency)
+}
+
 score.MPD <- function(x, ..) {
     if (names(x[[2]][2]) == "x") index = 1 else index = 1:3
     return(c(phase = x[[1]][[1]], concentration = unlist(x[[2]][index])))
 }
 
 null.MPD <- function(x, ...) null.FUN(x, MPD, items = TRUE, step1only = TRUE, ...)
-
-makeTransparent <- function(col, transparency) {
-     ## Semitransparent colours
-     tmp <- col2rgb(col)/255
-     rgb(tmp[1,], tmp[2,], tmp[3,], alpha=1-transparency)
-}
