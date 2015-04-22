@@ -1,4 +1,4 @@
-null.FUN <- function(x,...) UseMethod("null.FUN")
+null.FUN <- function(x, ...) UseMethod("null.FUN")
 
 null.FUN.default <- function(x, FUN, n = 1000, items = FALSE, ...) {
 	x <- structure.inputs.nulls(x, items)

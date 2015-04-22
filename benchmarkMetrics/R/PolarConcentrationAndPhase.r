@@ -1,5 +1,6 @@
-PolarConcentrationAndPhase <- function(cdata,phase_units="radians",n=dim(cdata)[2]) {
-    if (class(cdata)=="numeric") cdata =  t(matrix(cdata))
+PolarConcentrationAndPhase <- function(cdata, phase_units = "radians",
+                                       n = dim(cdata)[2]) {
+    if (class(cdata) == "numeric") cdata =  t(matrix(cdata))
     
     xdata = ydata = matrix(0, dim(cdata)[1], 1)
     for (k in 1:n) {
@@ -8,7 +9,7 @@ PolarConcentrationAndPhase <- function(cdata,phase_units="radians",n=dim(cdata)[
         ydata = ydata + cdata[, k] * sin(angle)
     }
     
-    adata = apply(cdata,1,sum)
+    adata = apply(cdata, 1, sum)
     
     phase = atans(-ydata, xdata, phase_units)
     conc  = sqrt (xdata^2 + ydata^2) / adata

@@ -11,51 +11,52 @@ print.MPD <- function(x, ...) {
 
 
 summary.MPD <- function(x, ...) {
-	required.standard <- function(l) head(basic.summaryInfo(x[[l]])[-1],-1)
+	required.standard <- function(l) head(basic.summaryInfo(x[[l]])[-1], -1)
 	
-	summ=list()
+	summ = list()
 	
-	summ=determinIfWeightsUsed(x,summ)
-	summ$weights=list(weights=summ$weights)
+	summ = determinIfWeightsUsed(x, summ)
+	summ$weights = list(weights = summ$weights)
 	
-	summ$Concentration=c(Metric='NME - Concentration',required.standard('Concentration'))
-	summ$Concentration$Scores=scores.summaryInfo(x$Concentration)
+	summ$Concentration = c(Metric='NME - Concentration',
+                           required.standard('Concentration'))
+	summ$Concentration$Scores = scores.summaryInfo(x$Concentration)
 	
-	summ$Phase=c(Metric='MPD - Phase',required.standard('Phase'))
-	summ$Phase$Scores=standard.round(x$Phase$Score)
+	summ$Phase = c(Metric = 'MPD - Phase', required.standard('Phase'))
+	summ$Phase$Scores = standard.round(x$Phase$Score)
 	
 	
 	class(summ) <- 'listofMetric'
 	return(summ)
 }
 
-plot.MPD <- function(x,...) {
-    xc=x[[1]]$x
-    yc=x[[1]]$y
+plot.MPD <- function(x, ...) {
+    xc = x[[1]]$x
+    yc = x[[1]]$y
     
-    xl=x[[2]]$x
-    yl=x[[2]]$y
+    xl = x[[2]]$x
+    yl = x[[2]]$y
     
-    cols=colorRampPalette(c("#EEEEEE","#777777"))(180)
+    cols = colorRampPalette(c("#EEEEEE", "#777777"))(180)
     
-    dl = abs(xl-yl)
-    dc  = abs(xc-yc)
+    dl = abs(xl - yl)
+    dc = abs(xc - yc)
     
-    dc=round(180*dc/pi); dc[dc>360]=dc[dc>360]-360
+    dc = round(180 * dc / pi); dc[dc > 360] = dc[dc > 360] - 360
     
-    cols=colorRampPalette(c("#000099","#990000","#000099"))(360)
-    cols=makeTransparent(cols[dc],0.9*(1-dl/max(dl)))
+    cols = colorRampPalette(c("#000099", "#990000", "#000099"))(360)
+    cols = makeTransparent(cols[dc], 0.9 * (1 - dl / max(dl)))
     
     graphics.off()
-    l=c(xl,yl); cn=c(xc,yc); symb=c(rep(c(4,16),each=length(xl)))
-    radial.plot(l,cn,line.col=cols,point.symbols=symb,
-                point.col=cols,rp.type="rs",...)
+    l = c(xl,yl);    cn = c(xc, yc);    symb = c(rep(c(4, 16),each = length(xl)))
+    radial.plot(l, cn, line.col = cols, point.symbols = symb,
+                point.col = cols, rp.type = "rs", ...)
 }
 
 makeTransparent <- function(col, transparency) {
      ## Semitransparent colours
-     tmp <- col2rgb(col)/255
-     rgb(tmp[1,], tmp[2,], tmp[3,], alpha=1-transparency)
+     tmp <- col2rgb(col) / 255
+     rgb(tmp[1, ], tmp[2, ], tmp[3, ], alpha = 1 - transparency)
 }
 
 score.MPD <- function(x, ..) {
@@ -63,4 +64,5 @@ score.MPD <- function(x, ..) {
     return(c(phase = x[[1]][[1]], concentration = unlist(x[[2]][index])))
 }
 
-null.MPD <- function(x, ...) null.FUN(x, MPD, items = TRUE, step1only = TRUE, ...)
+null.MPD <- function(x, ...)
+    null.FUN(x, MPD, items = TRUE, step1only = TRUE, ...)
