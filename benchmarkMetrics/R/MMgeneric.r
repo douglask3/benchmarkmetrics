@@ -25,4 +25,5 @@ plot.MM <- function(x,...)  {
 
 score.MM <- function(x, ...) unlist(x[1])
 
-null.MM  <- function(x, ...) null.FUN(x, MM, items=TRUE, ...)
+null.MM  <- function(x, ...) null.FUN(x, MM , items=TRUE, ...)
+null.SCD <- function(x, ...) null.FUN(x, SCD, items=TRUE, ...)
