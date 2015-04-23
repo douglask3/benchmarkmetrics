@@ -1,6 +1,6 @@
-structure.inputs <- function(x, y, w, itemize = FALSE) {	    
-    x <- as.matrix(x)
-	y <- as.matrix(y)
+structure.inputs <- function(x, y, w, itemize = FALSE, na.rm = TRUE) {	    
+    x <- setAsMatrix(x)
+	y <- setAsMatrix(y)
     
     if (!all(dim(x) == dim(y))) y = matchDimensions(x, y)
     
@@ -10,8 +10,18 @@ structure.inputs <- function(x, y, w, itemize = FALSE) {
     
     if (!itemize) c(x, y, w) := lapply(list(x, y, w),function(i)
                                                 matrix(i, ncol = 1))
-	return(list(x, y, w))
+	if (na.rm) {
+        test = !is.na(apply(x,1,sum)+apply(y,1,sum))
+        
+        x = as.matrix(x[test, ])
+        y = as.matrix(y[test, ])
+        w = as.matrix(w[test, ])
+    }
+    return(list(x, y, w))
 }
+
+setAsMatrix <- function(x) 
+    if (class(x) == "ts") return(ts2matrix(x)) else return(as.matrix(x))
 
 matchDimensions <- function(x, y, y0 = y, tryC = 0) {
     if (tryC == max(sapply(list(x, y), function(i) length(dim(i)))))
