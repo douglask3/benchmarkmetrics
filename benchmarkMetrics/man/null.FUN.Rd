@@ -58,4 +58,6 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~benchmark }
-\keyword{ ~metric }% __ONLY ONE__ keyword per line
+\keyword{ ~metric }
+\keyword{ ~null model}
+
