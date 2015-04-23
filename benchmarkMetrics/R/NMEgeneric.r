@@ -12,12 +12,12 @@ summary.NME <- function(x, ...) {
 	return(summ)
 }
 
-plot.NME <- function(x, ...)  {
+plot.NME <- function(x, xlab='x', ylab='y', ...)  {
     cols = c('red', 'green', 'blue')
     pchs = c(19, 4, 1)
     yi   = x$y
     
-    plot(range(x$x123), range(yi), type='n', xlab='x', ylab='y', ...)
+    plot(range(x$x123), range(yi), type='n', xlab = xlab, ylab = ylab, ...)
     
     for (i in 1:3) {
         xi = x$x123[, i]
