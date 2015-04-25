@@ -28,7 +28,7 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
 \keyword{ benchmarks   }
 \keyword{ benchmarking }
 \keyword{ metrics }
-\examples{ ]
+\examples{ 
   
   mnthN         = rep(1:12, length.out = dim(Seatbelts)[1])
   yr            = seq(start(Seatbelts)[1], end(Seatbelts)[1]+11/12,by=1/12)
@@ -62,16 +62,18 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
   
   
   ## Test interannual variability
-  ma <- function(x, n = 12) filter(SeatbeltsLaw[, x], rep(1 / n, n), sides = 2)
+  ma <- function(x, n = 12) filter(x, rep(1 / n, n), sides = 2)
+  
+  ma.Seatbelt <- function(x, ...) ma(SeatbeltsLaw[, x], ...)
   
   Deaths   = ma('drivers')
   modNoLaw = ma('modNoLaw')
   modLaw   = ma('modLaw')
   
   graphics.off()
-  par(mfcol=c(3,1),mar=c(4,5,1,1))
+  par(mfcol=c(3,2),mar=c(4,3,1,0),oma=c(0,4,0,0))
   
-  plot (Deaths)
+  plot (Deaths,ylab='Deaths',xpd=NA)
   lines(yr, modNoLaw, col = 'red' )
   lines(yr, modLaw  , col = 'blue')
   legend(x = 'bottomleft', lty=1, col = c('black', 'red', 'blue'), legend = c('observed', 'Without Law', 'With Law'))
@@ -79,14 +81,18 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
   nme.NoLaw = NME(Deaths,modNoLaw)
   nme.Law   = NME(Deaths,modLaw)
   
-  plot (nme.NoLaw, xlab = 'Observed Deaths', ylab = 'Predicted Deaths')
-  mtext("Model without Law", side = 1, line = -1, adj = 0.99)
-  plot (nme.Law  , xlab = 'Observed Deaths', ylab = 'Predicted Deaths')
-  mtext("Model with Law"   , side = 1, line = -1, adj = 0.99)
+  nmePlot <- function(nme,txt) {
+    plot (nme, xlab = 'Observed Deaths', ylab = 'Predicted Deaths', xpd = NA)
+    mtext(txt, side = 2, line = 4, adj = 0.99)
+  }
+  
+  nmePlot(nme.NoLaw,"Model without Law")
+  nmePlot(nme.Law,"Model with Law")
   
   
   ## Test interannual variability in seasonality
-  plot(c(1,12),range(SeatbeltsLaw[,'drivers']))
+  plot(c(1,12),range(SeatbeltsLaw[,'drivers']),xaxt='n',xlab='Month',ylab='', type='n')
+  axis(1, at=1:12, c('J','F','M','A','M','J','J','A','S','O','N','D'))
   
   addSeasonal <- function(nm,col) apply(ts2matrix(SeatbeltsLaw[,nm]),1,function(y) polygon(c(1:12,12:1),c(y+100,rev(y)-100),col=col,border=NA))
   
@@ -97,6 +103,53 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
   mpd.NoLaw = MPD(SeatbeltsLaw[,'drivers'],SeatbeltsLaw[,'modNoLaw'])
   mpd.Law   = MPD(SeatbeltsLaw[,'drivers'],SeatbeltsLaw[,'modLaw'  ])
   
-  plot(mpd.NoLaw,rlab="",labels=c('0','0.8'),radial.labels='')
-  plot(mpd.Law)
+  mpdPlot <- function(mpd) { 
+    plot(mpd.NoLaw,labels=c('Jan','Jul'),
+         radial.lim=c(0,0.08),radial.labels='')
+    axis(1,pos=0,at=c(0,0.08))
+  }
+  mpdPlot(mpd.NoLaw)
+  mpdPlot(mpd.Law)
+  
+  
+  ## Test law model explonation of front:rear ratio killed
+  tot = SeatbeltsLaw[, 'front'] + SeatbeltsLaw[, 'rear']
+  SeatbeltsLaw[, 'front'] = SeatbeltsLaw[, 'front'] / tot
+  SeatbeltsLaw[, 'rear' ] = SeatbeltsLaw[, 'rear' ] / tot
+  SeatbeltsNoLaw          = SeatbeltsLaw[test,]
+  
+  form  = "front ~ kms * (a  + b*year + d*sin(e + month * 2*pi/12))"
+  modFrontNoLaw = performModel(SeatbeltsNoLaw)
+  modFrontLaw   = performModel(SeatbeltsLaw, "+ f*law", c(f = 0))
+  
+  SeatbeltsLaw = addCol2Ts(SeatbeltsLaw,
+        cbind(modFrontNoLaw, modRearNoLaw = 1 - modFrontNoLaw,
+              modFrontLaw  , modRearLaw   = 1 - modFrontLaw  ))
+   
+  returnDensity <- function(x) {
+    out=hist(SeatbeltsLaw[, x], 1000, plot = FALSE)[c('mids','density')]
+    out[[2]]=ma(out[[2]],100)
+    return(out)
+  }
+  
+  Obs   = returnDensity('front'        )
+  NoLaw = returnDensity('modFrontNoLaw')
+  Law   = returnDensity('modFrontLaw'  )
+  
+  plot(range(Obs[[1]]),range(c(Obs[[2]],NoLaw[[2]],Law[[2]]),na.rm=TRUE),type='n',xlab='',ylab='Count')
+  
+  addDensityLines <- function(x,col) lines(x[[1]],x[[2]],col=col)
+  
+  addDensityLines(Obs,'black')
+  addDensityLines(NoLaw,'red')
+  addDensityLines(Law,'blue')
+  
+  
+  mm.NoLaw = MM(SeatbeltsLaw[,c('front'        , 'rear'        )],
+                SeatbeltsLaw[,c('modFrontNoLaw', 'modRearNoLaw')])
+  mm.Law   = MM(SeatbeltsLaw[,c('front'        , 'rear'        )],
+                SeatbeltsLaw[,c('modFrontLaw'  , 'modRearLaw'  )])
+                
+  plot(mm.NoLaw)
+  plot(mm.Law  )
 }
