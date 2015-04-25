@@ -66,12 +66,12 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
   
   ma.Seatbelt <- function(x, ...) ma(SeatbeltsLaw[, x], ...)
   
-  Deaths   = ma('drivers')
-  modNoLaw = ma('modNoLaw')
-  modLaw   = ma('modLaw')
+  Deaths   = ma.Seatbelt('drivers')
+  modNoLaw = ma.Seatbelt('modNoLaw')
+  modLaw   = ma.Seatbelt('modLaw')
   
   graphics.off()
-  par(mfcol=c(3,2),mar=c(4,3,1,0),oma=c(0,4,0,0))
+  par(mfcol=c(3,3),mar=c(4,3,1,0),oma=c(0,4,0,0))
   
   plot (Deaths,ylab='Deaths',xpd=NA)
   lines(yr, modNoLaw, col = 'red' )
