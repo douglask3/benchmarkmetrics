@@ -1,1 +1,9 @@
-export(MM,MPD,NME,NMSE,SCD,atans,plot.MM,plot.NME,seasonal_concentration_and_phase.Rd,summary.MM,sumery.MDP,summary.NME)
+export(NME,      NMSE,      MM,      SCD,      MPD,
+       print.NME,           print.MM,          print.MPD,
+       summary.NME,         summary.MM,        summary.MPD,
+       plot.NME,            plot.MM,           plot.MPD),
+       score.NME,           score.MM,          score.MPD,
+       null.NME, null.NMSE, null.MM, null.SCD, null.MPD,
+       atans, PolarConcentrationAndPhase,)
+       
+imports(plotrix)

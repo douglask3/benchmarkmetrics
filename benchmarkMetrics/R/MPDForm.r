@@ -1,1 +1,1 @@
-MPDForm <- function(x,y,w) sum((1/pi)*w*acos(cos(y-x)))/length(x)
+MPDForm <- function(x, y, w) sum((1 / pi) * w * acos(cos(y-x))) / length(x)
