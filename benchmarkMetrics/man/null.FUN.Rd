@@ -1,4 +1,4 @@
-\name {null.FUN }
+\name{null.FUN }
 \alias{null.NME }
 \alias{null.NMSE}
 \alias{null.MM  }
@@ -9,7 +9,7 @@
 \description{Performs mean and random-resampling null-models for given metric.}
 \usage{
   null.FUN (x, FUN, n = 1000, ...)
-  null.NME (x, ...) 
+  null.NME (x, ...)
   null.NMSE(x, ...)
   null.MM  (x, ...)
   null.SCD (x, ...)
@@ -24,7 +24,7 @@
 }
 
 \details{
-To facilitate interpretation of the scores, \code{null.FUN} compares a benchmark dataset \code{x} to a dataset of the same size, filled with: 1) the mean of the observations; and 2) a ``randomized'' datasets. Ramdomizing of datasets is performed using a bootstrapping procedure (Efron, 1979; Efron and Tibshirani, 1994), whereby a constructed dataset of the same dimensions as \code{x} is filled by randomly resampling the data in \code{x} with replacement 100 times to estimate a probability density function of ``random-resampled'' scores. 
+To facilitate interpretation of the scores, \code{null.FUN} compares a benchmark dataset \code{x} to a dataset of the same size, filled with: 1) the mean of the observations; and 2) a ``randomized'' datasets. Ramdomizing of datasets is performed using a bootstrapping procedure (Efron, 1979; Efron and Tibshirani, 1994), whereby a constructed dataset of the same dimensions as \code{x} is filled by randomly resampling the data in \code{x} with replacement 100 times to estimate a probability density function of ``random-resampled'' scores.
 }
 
 \value{
@@ -60,4 +60,3 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
 \keyword{ ~benchmark }
 \keyword{ ~metric }
 \keyword{ ~null model}
-
