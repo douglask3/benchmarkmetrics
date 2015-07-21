@@ -8,3 +8,4 @@ Maintainer: Douglas Kelley <douglas.kelley@mq.edu.au>
 Description: Measures distances between modelled and obscured data, developed for the benchmarking of vegetation models.
 License: GPL-2
 Depends: Raster
+Depends: plotrix
