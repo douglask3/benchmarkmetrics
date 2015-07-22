@@ -1,9 +1,9 @@
-export(NME,      NMSE,      MM,      SCD,      MPD,
-       print.NME,           print.MM,          print.MPD,
-       summary.NME,         summary.MM,        summary.MPD,
-       plot.NME,            plot.MM,           plot.MPD,
-       score.NME,           score.MM,          score.MPD,
-       null.NME, null.NMSE, null.MM, null.SCD, null.MPD,
+export(NME, NME.default, NMSE, NMSE.default,
+       print.NME, summary.NME, plot.NME, score.NME, null.NME, null.NMSE,
+       MM , MM.default , SCD , SCD.default,
+       print.MM , summary.MM , plot.MM, score.MM  , null.MM , null.SCD,
+       MPD, MPD.default,
+       print.MPD, summary.MPD, plot.MDP, score.MPD, null.MDP,
        atans, PolarConcentrationAndPhase)
 
 import(plotrix)
