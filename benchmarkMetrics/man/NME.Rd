@@ -20,19 +20,13 @@
 }
 
 \details{
-  NME/NMSE measures the distance (or error) between model and observations. 
+  NME/NMSE measures the distance (or error) between model and observations.
 
-\deqn{
-  NME=\sum\nolimits_i {\left| {y_{i} -x_{i} } \right|} /\sum\nolimits_i
-    {\left| {x_{i} -\bar{{x}}} \right|,}
+\deqn{NME = \Sigma | y_{i} - x_{i} | / \Sigma| x_{i} - mean(x) |}
+\deqn{NMSE = \Sigma ( y_{i} - x_{i} )^2 / \Sigma  ( x_{i} - mean(x) )^2}
 
-
-  NMSE=\sum\nolimits_i {\left( {y_{i} -x_{i} }
-    \right)}^{2}/\sum\nolimits_i {\left( {x_{i} -\bar{{x}}} \right)^{2},}
-}
-
-where\equ{y_{i}} is the modelled value of variable \equ{x} in grid cell (or at site)
-\equ{i}, \equ{x_{i}} the corresponding observed value, and \equ{\bar{x}} the mean
+where \eqn{y_{i}} is the modelled value of variable \eqn{x} in grid cell (or at site)
+\eqn{i}, \eqn{x_{i}} the corresponding observed value, and \eqn{mean(x)} the mean
 observed value across all grid cells or sites.
 
 They both take the value of 0 for perfect agreement. A value of 1 is equivalent to a comparison between observations and the observtations mean value. Large numbers donote larger errors and therefore worse model performance.
@@ -67,56 +61,56 @@ Nash, Je., & Sutcliffe, J. V. (1970). River flow forecasting through conceptual 
   ## C. I. Bliss (1952) The Statistics of Bioassay. Academic Press.
   ## In McNeil, D. R. (1977) Interactive Data Analysis. New York: Wiley.
   ## see ?ToothGrowth
-  
+
   ## Load data
   Obs   = ToothGrowth[,'len' ]
-  
+
   ## Construct Model
   supp  = ToothGrowth[,'supp']
   dose  = ToothGrowth[,'dose']
-  toothFairy = sample(c(T,F), length(Obs),replace=TRUE)
+  toothFairy = sample(c(TRUE,FALSE), length(Obs),replace=TRUE)
   Mod   = predict(lm(Obs ~  supp + dose + toothFairy))/2 + 10
-  
+
   ## Compare model errors using metrics
   nme = NME (Obs, Mod)
   nmse= NMSE(Obs, Mod)
-  
+
   ## View metric info
   nme
   nmse
   summary(nme)
-  
+
   ## Plot metric info
   par(mfrow=c(2,1))
   plot(nme)
   mtext("NME")
   plot(nmse)
   mtext("NMSE")
-  
-  
+
+
   ## Compare Models with and without toothfariy
   with    = predict(lm(Obs ~  supp + dose + toothFairy))
   without = predict(lm(Obs ~  supp + dose))
-  
+
   ## Perform metrics
   with    = NME (Obs,with)
   without = NMSE(Obs,without)
-  
+
   ## Plot with and without
   par(mfrow=c(2,1))
   plot(with)
   mtext("with")
   plot(without)
   mtext("without")
-  
-  
+
+
   ## Example taken from ?brick
   require(raster)
   b = brick(system.file("external/rlogo.grd", package="raster"))
-  
+
   m2 = NME(b[[1]],b[[2]])
   m3 = NME(b[[1]],b[[3]])
-  
+
   par(mfrow=c(2,1))
   plot (m2)
   mtext("2")

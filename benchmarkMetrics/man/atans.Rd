@@ -9,12 +9,10 @@ atans(x, y, units = "months")
 \arguments{
   \item{x, y}{numeric or complex vectors or rasters}
   \item{units}{How the resultant angle should be measured. See value for more information}
+}
 
 \value{The angle between the origin and points  for each element in x and y. Expressed in units as described by 'units'. units='months' is the default, and returns fractional months between 0 and 12 (0 representing the x-axis). 'radians' returns radians. 'degrees' returns degrees.}
 \author{Douglas Kelley \email{douglas.i.kelley@gmail.com}}
-\note{
-%%  ~~further notes~~
-}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 

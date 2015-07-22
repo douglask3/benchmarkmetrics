@@ -1,16 +1,13 @@
-ts2matrix <- function(dat, calendar=TRUE,...) {
-    tdat = time(dat)
-    fdat = frequency(dat)
-    
-    if     (calendar && fdat == 4 ) cnames = c("Q1", "Q2", "Q3", "Q4")
-    else if(calendar && fdat == 12) cnames = month.abb
-    else                            cnames = tdat[1:fdat] - floor(tdat[1])
+ts2matrix <- function(x) {
+    f = frequency(x)
+    t = tsp(x)
+    y = t(matrix(x, nrow = f))
 
-    rnames = tdat[seq(1, length(dat), by = fdat)]
+    if      (f == 12) colnames(y) = month.abb
+    else if (f ==  4) colnames(y) = c('Qtr1', 'Qtr2', 'Qtr3', 'Qtr4')
+    else              colnames(y) = 1:ncol(y)
     
-    dat=matrix(unclass(dat), ncol = fdat,...)
-    rownames(dat) = rnames
-    colnames(dat) = cnames
-    
-    return(dat)
+    rownames(y) = seq(t[1], t[2] + 1/f - 1, length.out = nrow(y))
+
+    return(y)
 }

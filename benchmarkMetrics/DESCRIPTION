@@ -1,10 +1,11 @@
 Package: benchmarkMetrics
 Type: Package
-Title: Measures distances between modelled and obscured data, developed for the benchmarking of vegetation models.
+Title: Benchmark Metrics
 Version: 1.0
 Date: 2014-05-30
 Author: Douglas Kelley
 Maintainer: Douglas Kelley <douglas.kelley@mq.edu.au>
-#Description: More about what it does (maybe more than one line)
+Description: Measures distances between modelled and obscured data, developed for the benchmarking of vegetation models.
 License: GPL-2
-Depends: Raster
+Depends: raster
+Depends: plotrix

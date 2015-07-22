@@ -4,6 +4,7 @@ print.NME <- function(x, ...) {
 
 	cat("\nScores:\n")
 	cat.NME.scores(x)
+	cat("\n")
 }
 
 summary.NME <- function(x, ...) {
@@ -16,16 +17,16 @@ plot.NME <- function(x, xlab='x', ylab='y', ...)  {
     cols = c('red', 'green', 'blue')
     pchs = c(19, 4, 1)
     yi   = x$y
-    
+
     plot(range(x$x123), range(yi), type='n', xlab = xlab, ylab = ylab, ...)
-    
+
     for (i in 1:3) {
         xi = x$x123[, i]
         points(xi, yi, pch = pchs[i], col = cols[i])
         lines(xi, predict(lm(yi ~ xi)), col = cols[i])
     }
-    
-    lines(c(-9E9, 9E9), c(-9E9, 9E9), lwd = 2) 
+
+    lines(c(-9E9, 9E9), c(-9E9, 9E9), lwd = 2)
 
     legend('topleft', paste('Step',1:3), col = cols, bty = 'n', pch = pchs, lty = 1)
 }
@@ -33,5 +34,5 @@ plot.NME <- function(x, xlab='x', ylab='y', ...)  {
 score.NME <- function(x, ...)
     if (names(x[2]) == "x") return(x[[1]]) else return(unlist(x[1:3]))
 
-null.NME  <- function(x, ...) null.FUN(x, NME , items=FALSE, step1only=TRUE, ...) 
-null.NMSE <- function(x, ...) null.FUN(x, NMSE, items=FALSE, step1only=TRUE, ...) 
+null.NME  <- function(x, ...) null.FUN(x, NME , items=FALSE, step1only=TRUE, ...)
+null.NMSE <- function(x, ...) null.FUN(x, NMSE, items=FALSE, step1only=TRUE, ...)
