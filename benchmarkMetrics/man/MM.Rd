@@ -16,25 +16,20 @@
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x, y}{matrix, data.frame, raster or raster stack where y is the approximation to x.
-           The last dimension represents the fractional items, whilst all other dimenstions 
+           The last dimension represents the fractional items, whilst all other dimenstions
            represent different realisations of these items}
-  \item{w}{vector or raster of weights. If NULL, all items are considered equally. 
+  \item{w}{vector or raster of weights. If NULL, all items are considered equally.
            If a vector, must by the same length as first dimension of x and represents the
            weight of each point. If matrix or raster, than weight for each point and item.}
 }
 \details{MM measure the absolute distamce between items of simulated and observed items.
 
-\deqn{
-MM=\sum\nolimits_{ij} {\left| {x_{ij} -y_{ij} } \right|} /n;
-}
-where \equ{x_{ij}} and \equ{y_{ij}} is the fraction of item \equ{j} in measurement \equ{i}
+\deqn{MM = \Sigma | x_{i,j} - y_{i,j}  |  / n}
+where i is the fractrual measurement of item j
 
-SCD is similar and is often employed as an enhanced way of measuring  ``signal-to-noise''. 
+SCD is similar and is often employed as an enhanced way of measuring  ``signal-to-noise''.
 
-\deqn{
-SCD=\sum\nolimits_{ij} {\left( {\sqrt {q_{ij} } -\sqrt {p_{ij} } },
-\right)^{2}} /n
-}
+\deqn{SCD = \Sigma (x_{i,j}^0.5 - y_{i,j}^0.5)^2 / n}
 
 They both take the value of 0 for perfect agreement, and 2 for complete disagreement.
 
@@ -66,43 +61,44 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
 \code{\link{print.MM}}, \code{\link{summary.MM}}, \code{\link{plot.MM}}
 }
 \examples{
+  require("raster")
   ## NPP allocation observations from Schuur & Matson (2001)
   Obs =cbind(canopy = c(4.25 ,5.0  ,4.25 ,4.5  ,3.0  ,2.0 ),
              stem   = c(0.37 ,0.12 ,0.62 ,0.12 ,0.75 ,0.05),
              wood   = c(0.62 ,0.21 ,1.03 ,0.21 ,1.24 ,0.08))
-  
+
   ## Allocacion fractions from GDAY fixed allocation (Mcmurtrie & Comins 1996)
   Mod = cbind(canopy = rep(0.2,6),
               stem   = rep(0.6,6),
               wood   = rep(0.2,6))
-  
+
   ## Weight are total NPP of each measure
   weights = apply(Obs,1,sum)
-  
+
   ## Perform and display comparison
   m = MM(Obs,Mod,weights)
   m
   summary(m)
   plot(m)
-  
+
   m = SCD(Obs,Mod,weights)
   summary(m)
-  
+
   ## Items from raster brick, taken from ?brick
   ## 3-item brick
   b = brick(system.file("external/rlogo.grd", package="raster"))
-  
+
   ## randomizd 3-item brick
   br   = b
   br[] = b[sample(1:ncell(b))]
-  
+
   ## metric comparison
   m = MM(b,br)
-  
+
   ## Display results
   summary(m)
   plot(m)
-  
+
   ## Schuur E. A. G., Matson P. A. 2001 Net primary productivity and nutrient cycling across a mesic to wet precipitation gradient in Hawaiian montane forest. Oecologia 128, 431-442. doi:10.1007/s004420100671
   ## Mcmurtrie, R. E., & Comins, H. N. (1996). The temporal response of forest ecosystems to doubled atmospheric CO2 concentration. Global Change Biology, 2(1), 49-57.
 }

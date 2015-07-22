@@ -24,11 +24,9 @@ MPD(x, y, w=NULL, ...)
 \details{
 Each simulated or observed timestep (e.g month) with in the period (i.e year) is represented by a vector in the complex plane, which is split into phase and concontration components as descibed in \link{\code{PolarConcentrationAndPhase}}. If the variable is concentrated all in one point within the polar coordinates, seasonal concentration is equal to 1 and the phase corresponds to that month. If the variable is evenly spread over all coordinates, then concentration is equal to zero and phase is undefined. If either modelled or observed values have zero
 values for all months in a given cell or site, then that cell/site is not included in the comparisons. Concentration comparisons are performed using \code{\link{NME}}. Modelled and observed phase are compared using mean phase difference:
-\deqn{
-mpd=\left( {1/\pi } \right)\arccos \left[ {\cos \left( {\omega_{i}
--\phi _{i} } \right)/n} \right],
-}
-where $\omega_{i}$ is the phase from input x, and $\varphi_{i}$ is from input y.
+
+\deqn{mpd = (1/\pi) . acos [ cos(\omega - \phi )/n]}
+where \eqn{\omega} is the phase from input x, and \eqn{\phi} is from input y.
 }
 
 

@@ -22,17 +22,11 @@
 \details{
   NME/NMSE measures the distance (or error) between model and observations.
 
-\deqn{
-  NME=\sum\nolimits_i {\left| {y_{i} -x_{i} } \right|} /\sum\nolimits_i
-    {\left| {x_{i} -\bar{{x}}} \right|,}
+\deqn{NME = \Sigma | y_{i} - x_{i} | / \Sigma| x_{i} - mean(x) |}
+\deqn{NMSE = \Sigma ( y_{i} - x_{i} )^2 / \Sigma  ( x_{i} - mean(x) )^2}
 
-
-  NMSE=\sum\nolimits_i {\left( {y_{i} -x_{i} }
-    \right)}^{2}/\sum\nolimits_i {\left( {x_{i} -\bar{{x}}} \right)^{2},}
-}
-
-where\equ{y_{i}} is the modelled value of variable \equ{x} in grid cell (or at site)
-\equ{i}, \equ{x_{i}} the corresponding observed value, and \equ{\bar{x}} the mean
+where \eqn{y_{i}} is the modelled value of variable \eqn{x} in grid cell (or at site)
+\eqn{i}, \eqn{x_{i}} the corresponding observed value, and \eqn{mean(x)} the mean
 observed value across all grid cells or sites.
 
 They both take the value of 0 for perfect agreement. A value of 1 is equivalent to a comparison between observations and the observtations mean value. Large numbers donote larger errors and therefore worse model performance.
