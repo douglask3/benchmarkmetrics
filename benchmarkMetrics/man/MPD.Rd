@@ -34,7 +34,7 @@ Length comparisons return values as outlines in \code{\link{NME}}. Phase compari
 \references{
 Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J. B., & Willis, K. O. (2013). A comprehensive benchmarking system for evaluating global vegetation models. Biogeosciences, 10(5), 3313-3340. doi:10.5194/bg-10-3313-2013
 }
-\author{Douglas Kelley \email{douglaskelley3@gmail.com}}
+\author{Douglas Kelley \email{douglas.i.kelley@gmail.com}}
 
 
 \seealso{
