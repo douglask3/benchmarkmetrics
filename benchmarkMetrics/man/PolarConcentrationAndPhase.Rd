@@ -59,37 +59,37 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
   ## Average Monthly Temperatures at Nottingham, 1920-1939
   ## Anderson, O. D. (1976) Time Series Analysis and Forecasting: The Box-Jenkins approach. Butterworths. Series R.
   ## see ?nottem
-  
+
   ## Load T
   T       = t(matrix(nottem,nrow=12))
-  
+
   ## Calculate seasonal climatology and angle of each month in degrees
-  climT   = apply(annualT,2,mean)
+  climT   = apply(T,2,mean)
   climT[1:6]=climT[1:6]
   periods = head(seq(0,360,length.out=13),-1)
-  
+
   ## Plot climatology
   polar.plot(climT,periods,labels=c('J','F','M','A','M','J','J','A','S','O','N','D'),label.pos=periods,radial.labels='',radial.lim=c(25,62),rp.type='p',poly.col='#FF0000AA')
-  
+
   scaleConc <- function(i) min(climT)+i*diff(range(climT))
-  
+
   ## Calculate phase and concentraion.
   pc      = PolarConcentrationAndPhase(climT,phase_units="degrees")
   phase   = pc[[1]][1]
-  
+
   ## Covert concentration to point on tempurature plot
   conc    = scaleConc(pc[[2]][1])
-  
+
   ## Plot climatology phase on concentration on plot
   polar.plot(conc,phase,point.symbol=4,radial.lim=c(25,62),rp.type='rs',cex=2,lwd=2,add=TRUE)
-  
+
   ## same calculation and plot or each year.
-  pc      = PolarConcentrationAndPhase(annualT,phase_units="degrees")
+  pc      = PolarConcentrationAndPhase(T,phase_units="degrees")
   phase   = pc[[1]]
   conc    = scaleConc(pc[[2]])
-  
+
   polar.plot(conc,phase,point.symbol=16,radial.lim=c(25,62),rp.type='rs',cex=1,add=TRUE,line.col='black')
-  
+
 }
 \keyword{ ~polar }
 \keyword{ ~phase }

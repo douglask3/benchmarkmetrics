@@ -32,6 +32,7 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
 
   mnthN         = rep(1:12, length.out = dim(Seatbelts)[1])
   yr            = seq(start(Seatbelts)[1], end(Seatbelts)[1]+11/12,by=1/12)
+  law           = Seatbelts[, "law"]
   test          = law == 0
 
   addCol2Ts <- function(dat,ndat) {
