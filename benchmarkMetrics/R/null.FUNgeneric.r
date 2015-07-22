@@ -1,5 +1,4 @@
 print.nullModel <- function(x, ...) {    
-    
     printMultiModelMean(x[[1]])
    
     cat("\n\n","Random-Resampling model scores:\n\t\t")
@@ -16,15 +15,22 @@ print.nullModel <- function(x, ...) {
 }
 
 printMultiModelMean <- function(x) {
-    cat("Mean model score:\n\t\t")
+    cat("Mean model score:\n\t")
+    
     if (length(x) > 1) {
         if (names(x[1]) == "phase") {
             names(x) = c(" ", paste("Step", 1:3))
             cat("Phase\t\tConcentration\n\t")
          }
-        print(standard.round(x))
+        printstandard.round(x)
     } else cat(standard.round(x), "\n")
     invisible()
+}
+
+printstandard.round <- function(...) {
+    x = standard.round(...)
+    cat(names(x), "\n")
+    cat("\t", x , "\n")
 }
 
 summary.nullModel <- function(x, ...) {
@@ -43,15 +49,16 @@ summary.nullModel <- function(x, ...) {
 print.NullModelSummary <- function(x) {
     printMultiModelMean(x[[1]])
     
-    if (class(x[2]) == "list") fun = lapply else fun = sapply
+    if (class(x[2]) == "list"  && length(x[2])>1)
+        fun = lapply else fun = sapply
     x = fun(x[2:3], standard.round)
     
     printRand <- function(a, b, c) {
-        if (!is.null(a)) cat(a, "\n")
-        cat("\t\t", b, " +/- ", c, "\n")
+        if (!is.null(a)) cat(a)
+        cat("\t", b, " +/- ", c, "\n")
     }
     
-    cat ("Random Model\n\t\t(Mean +/- sd)\n")
+    cat ("Random Model\n\t(Mean +/- sd)\n")
     if (class(x) == "list") mapply(printRand, names(x[[1]]), x[[1]], x[[2]])
         else  printRand(NULL, x[1], x[2])
     invisible()
