@@ -8,6 +8,7 @@ print.MPD <- function(x, ...) {
 	cat("\nConcerntration Scores:\n")
 	cat.NME.scores(x$Concentration)
 	cat("\n")
+    invisible()
 }
 
 
@@ -51,6 +52,8 @@ plot.MPD <- function(x, ...) {
     l = c(xl,yl);    cn = c(xc, yc);    symb = c(rep(c(17, 16),each = length(xl)))
     radial.plot(l, cn, line.col = cols, point.symbols = symb,
                 point.col = cols, rp.type = "rs", ...)
+
+    invisible()
 }
 
 makeTransparent <- function(col, transparency) {

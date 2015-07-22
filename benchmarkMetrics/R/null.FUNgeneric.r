@@ -11,6 +11,7 @@ print.nullModel <- function(x, ...) {
         
         lapply(1:ncol(pr), printStep)
     } else cat(standard.round(x[[2]]))  
+    invisible()
 }
 
 printMultiModelMean <- function(x) {
@@ -22,6 +23,7 @@ printMultiModelMean <- function(x) {
          }
         print(standard.round(x))
     } else cat(standard.round(x), "\n")
+    invisible()
 }
 
 summary.nullModel <- function(x, ...) {
@@ -51,6 +53,7 @@ print.NullModelSummary <- function(x) {
     cat ("Random Model\n\t\t(Mean +/- sd)\n")
     if (class(x) == "list") mapply(printRand, names(x[[1]]), x[[1]], x[[2]])
         else  printRand(NULL, x[1], x[2])
+    invisible()
 }
 
 plot.nullModel <- function(x, main='Null Model Results',
