@@ -11,6 +11,7 @@ print.nullModel <- function(x, ...) {
         
         lapply(1:ncol(pr), printStep)
     } else cat(standard.round(x[[2]]))  
+    cat("\n")
     invisible()
 }
 
