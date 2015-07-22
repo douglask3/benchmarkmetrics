@@ -24,12 +24,12 @@ Each simulated or observed timestep (e.g month) with in the period (i.e year) is
 
 where \eqn{n} is the number of timesteps \eqn{t} in the period.
 
-A mean vector L is calculated by averaging the real and imaginary parts of the n vectors, \eqn{x_{t}$}.
+A mean vector L is calculated by averaging the real and imaginary parts of the n vectors, \eqn{x}.
 \deqn{Lx = \Sigma x cos ( \theta )}
 and
 \deqn{Ly = \Sigma x sin ( \theta )}
 
-The length of the mean vector divided by the annual value stands for seasonal concentration, \equ{C}; its direction stands for phase, \eqn{P}:
+The length of the mean vector divided by the annual value stands for seasonal concentration, \eqn{C}; its direction stands for phase, \eqn{P}:
 \deqn{C = ( Lx^2 + Ly^2 ) / \Sigma x}
 
 \deqn{P = atan (Lx / Ly)}
@@ -46,7 +46,7 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
 \author{Douglas Kelley \email{douglaskelley3@gmail.com}}
 
 \seealso{
-\link{\code{MPD}}
+\code{\link{MPD}}
 }
 \examples{
   require(plotrix)

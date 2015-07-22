@@ -14,15 +14,13 @@
 MPD(x, y, w=NULL, ...)
 }
 %- maybe also 'usage' for other objects documented here.
-\\arguments{
+\arguments{
   \item{x, y}{matrix, data.frame, raster or raster stacks. Where y is the approximation to x}
   \item{w}{vector or raster of weights or same size as x. If NULL, all items are considered equally.}
-  \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
-}
+  \item{\dots}{arguments passed to \code{\link{NME}}}
 }
 \details{
-Each simulated or observed timestep (e.g month) with in the period (i.e year) is represented by a vector in the complex plane, which is split into phase and concontration components as descibed in \link{\code{PolarConcentrationAndPhase}}. If the variable is concentrated all in one point within the polar coordinates, seasonal concentration is equal to 1 and the phase corresponds to that month. If the variable is evenly spread over all coordinates, then concentration is equal to zero and phase is undefined. If either modelled or observed values have zero
+Each simulated or observed timestep (e.g month) with in the period (i.e year) is represented by a vector in the complex plane, which is split into phase and concontration components as descibed in \code{\link{PolarConcentrationAndPhase}}. If the variable is concentrated all in one point within the polar coordinates, seasonal concentration is equal to 1 and the phase corresponds to that month. If the variable is evenly spread over all coordinates, then concentration is equal to zero and phase is undefined. If either modelled or observed values have zero
 values for all months in a given cell or site, then that cell/site is not included in the comparisons. Concentration comparisons are performed using \code{\link{NME}}. Modelled and observed phase are compared using mean phase difference:
 
 \deqn{mpd = (1/\pi) . acos [ cos(\omega - \phi )/n]}
@@ -31,7 +29,7 @@ where \eqn{\omega} is the phase from input x, and \eqn{\phi} is from input y.
 
 
 \value{
-Length comparisons return values as outlines in \link{\code{NME}}. Phase comparisons represent a fration of maximum possible timing error (i.e 6 months for a year).
+Length comparisons return values as outlines in \code{\link{NME}}. Phase comparisons represent a fration of maximum possible timing error (i.e 6 months for a year).
 }
 \references{
 Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J. B., & Willis, K. O. (2013). A comprehensive benchmarking system for evaluating global vegetation models. Biogeosciences, 10(5), 3313-3340. doi:10.5194/bg-10-3313-2013
