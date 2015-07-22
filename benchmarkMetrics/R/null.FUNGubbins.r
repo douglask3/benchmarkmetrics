@@ -12,6 +12,7 @@ randMod.FUN <- function(x, FUN, nrs=1000, ...) {
 }
 
 structure.inputs.nulls <- function(x, items = FALSE) {
-    if (items) x = as.matrix(x) else x = as.matrix(as.vector(x))
+    x = setAsMatrix(x)
+    if (!items) x = as.matrix(as.vector(x))
     return(x)
 }
