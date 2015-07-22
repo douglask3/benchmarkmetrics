@@ -124,7 +124,7 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
     legend('top',colnames(scores)[1:2],col=rainbow(2),bty='n',ncol=2,lty=1)
 
     legend('bottom',colnames(scores)[1:2],col='black',lty=1,bty='n',ncol=2)
-    legend('bottom',colnames(scores)[1:2],col=rainbow(2),lty=2,bty='n',ncol=2)
+    legend('bottom',paste("min. score",colnames(scores)[1:2]),col=rainbow(2),lty=2,bty='n',ncol=2)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
