@@ -8,10 +8,10 @@ structure.inputs <- function(x, y, w, itemize = FALSE, na.rm = TRUE) {
         if (itemize) w = array(1, dim(x)[1]) else w = array(1,dim(x))
 	w = as.matrix(w)
     
-    if (!itemize) c(x, y, w) := lapply(list(x, y, w),function(i)
+    if (!itemize) c(x, y, w) := lapply(list(x, y, w), function(i)
                                                 matrix(i, ncol = 1))
 	if (na.rm) {
-        test = !is.na(apply(x,1,sum)+apply(y,1,sum))
+        test = !is.na(apply(x, 1, sum) + apply(y, 1, sum))
         
         x = as.matrix(x[test, ])
         y = as.matrix(y[test, ])
