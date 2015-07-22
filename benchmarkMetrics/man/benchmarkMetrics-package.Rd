@@ -152,4 +152,31 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
                 
   plot(mm.NoLaw)
   plot(mm.Law  )
+  
+  ## Find nulls models
+  nmeNull = null.NME(SeatbeltsLaw[,'drivers'])
+  mpdNull = null.MPD(SeatbeltsLaw[,'drivers'])
+  mmNull  = null.MM (SeatbeltsLaw[,'drivers'])
+  
+  ## Compare metrics to null models
+  
+  par(mfcol=c(2,2))
+  cols = cbind(Law =   c("#0000FF","#0000DD","#0000DD"),
+               NoLaw = c("#DDDD00","#AAAA00","#550000"))
+
+  
+  addRsltLine <- function(score  ,col ) lines(c(score,score),c(0,9E9),col=col)
+  
+  addStepLine <- function(scores ,cols)
+    mapply(addRsltLine,score(scores),cols)
+  
+  plot(nmeNull, main = "NME Model Comparison", xlim = c(0.4 , 1.5), legend = FALSE)
+  addStepLine(nme.Law  , cols[, 1])
+  addStepLine(nme.NoLaw, cols[, 2])
+  
+  plot(mmNull,  main = " MM Model Comparison ", xlim = c(0.08, 0.2), legend = FALSE)
+  addRsltLine(score(mm.Law)  , cols[1, 1])
+  addRsltLine(score(mm.NoLaw), cols[1, 2])
+  
+  plot(mpdNull, main = "MPD Model Comparison" , legend = FALSE)
 }
