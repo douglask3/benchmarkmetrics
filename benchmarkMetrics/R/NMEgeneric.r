@@ -5,6 +5,7 @@ print.NME <- function(x, ...) {
 	cat("\nScores:\n")
 	cat.NME.scores(x)
 	cat("\n")
+    invisible()
 }
 
 summary.NME <- function(x, ...) {
@@ -29,6 +30,7 @@ plot.NME <- function(x, xlab='x', ylab='y', ...)  {
     lines(c(-9E9, 9E9), c(-9E9, 9E9), lwd = 2)
 
     legend('topleft', paste('Step',1:3), col = cols, bty = 'n', pch = pchs, lty = 1)
+    invisible()
 }
 
 score.NME <- function(x, ...)
