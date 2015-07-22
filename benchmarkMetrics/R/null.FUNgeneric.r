@@ -53,11 +53,12 @@ print.NullModelSummary <- function(x) {
         else  printRand(NULL, x[1], x[2])
 }
 
-plot.nullModel <- function(x, main='Null Model Results', ...) {
+plot.nullModel <- function(x, main='Null Model Results',
+                           metrixName=NULL,...) {
     if (class(x[[2]]) != "matrix") {
         plot.nullModelInd(x, ...)
     } else {
-        par(mfrow = c(2, 1))
+        if (any(par("mfrow") == c(1, 1))) par(mfrow = c(2, 1))
         plotInd <- function(i1, i2, ttl) {
             xi = list(x[[1]][i1], x[[2]][i2,], x[3])
             class(xi) = class(x)
@@ -70,11 +71,20 @@ plot.nullModel <- function(x, main='Null Model Results', ...) {
     
 
 plot.nullModelInd <- function(x, xlab='', ylab='',
-                              main = 'Null Model Results', ...) {
+            main = 'Null Model Results', xlim = NULL,
+            legend = FALSE, ...) {
     
+    if(is.null(xlim)) {
+        xlim = range(x[[1]], x[[2]], na.rm = TRUE)
+        if (xlim[1] == min(x[[1]], na.rm = TRUE))
+            xlim[1] = xlim[1] - 0.2 * diff(xlim)
+        if (xlim[2] == max(x[[1]], na.rm = TRUE))
+            xlim[2] = xlim[2] + 0.2 * diff(xlim)
+    }
     # Plot histergram of random model
-    max(hist(x[[2]], ceiling(length(x[[2]]) / 10),
-             yaxt = 'n', xlab = xlab, ylab = ylab, main = main)$density)
+    max(hist(x[[2]], ceiling(length(x[[2]]) / 10), xlim = xlim,
+             yaxt = 'n', xlab = xlab, ylab = ylab, 
+             main = main)$density)
     
     # Calculate summary of null scores
     x = summary(x)
@@ -101,7 +111,7 @@ plot.nullModelInd <- function(x, xlab='', ylab='',
     
     if (length(x[[1]])>1) names(x[[1]]) = paste('Step', 1:length(x[[1]]))
     
-    nullModelLegend(meanCols, names(x[[1]]), cex = 0.7)
+    if (legend) nullModelLegend(meanCols, names(x[[1]]), cex = 0.7)
     invisible()
 }
 
