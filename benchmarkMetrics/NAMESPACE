@@ -4,6 +4,8 @@ export(NME, NME.default, NMSE, NMSE.default,
        print.MM , summary.MM , plot.MM, score.MM  , null.MM , null.SCD,
        MPD, MPD.default,
        print.MPD, summary.MPD, plot.MPD, score.MPD, null.MPD,
+       print.nullModel, summary.nullModel, plot.nullModel,
+       print.nullModelSummary,
        score, atans, PolarConcentrationAndPhase, ts2matrix)
 
 import(plotrix)
