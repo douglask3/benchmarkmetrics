@@ -3,7 +3,7 @@ export(NME, NME.default, NMSE, NMSE.default,
        MM , MM.default , SCD , SCD.default,
        print.MM , summary.MM , plot.MM, score.MM  , null.MM , null.SCD,
        MPD, MPD.default,
-       print.MPD, summary.MPD, plot.MDP, score.MPD, null.MDP,
+       print.MPD, summary.MPD, plot.MPD, score.MPD, null.MPD,
        atans, PolarConcentrationAndPhase)
 
 import(plotrix)
