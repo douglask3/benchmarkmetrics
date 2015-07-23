@@ -1,4 +1,4 @@
-\name {null.FUN }
+\name{null.FUN }
 \alias{null.NME }
 \alias{null.NMSE}
 \alias{null.MM  }
