@@ -32,9 +32,9 @@ null.FUN returns an object of class ``nullModel''.
 
 The \code{\link{print}} print function returns the score for all runs.
 
-The function \code{\link{summary}} returns the mean model score(s) and the mean and \code{\link{sd}} of the radomly-resampled model.
+The function \code{\link{summary}} returns the mean model score(s) and the mean and \code{\link{sd}} of the randomly-resampled model.
 
-The \code{\link{plot}} function plots a histagram of the probability density function (pdf) of radomly-reampled models, and indicated on this pdf the \code{\link{summary}} information.
+The \code{\link{plot}} function plots a histagram of the probability density function (pdf) of radomly-reampled models, and indicated on this plot the \code{\link{summary}} information.
 }
 
 \references{
@@ -60,27 +60,26 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
   ## In McNeil, D. R. (1977) Interactive Data Analysis. New York: Wiley.
   ## see ?ToothGrowth
 
-  ## Load data
   Obs  = ToothGrowth[,'len' ]
   nNME = null.NME(Obs)
 
-  ## mean model and mn +/- sd of randomly resampled model
   summary(nNME)
 
   plot(nNME)
 
-  ## affect of different sample sizes
+  ## Plotting the affect of different sample sizes
   summary4N <- function(n) {
     nNME = null.NME(Obs, n)
     nNME = unlist(summary(nNME))[c(1,4,5)]
     return( c(nNME[1:2], nNME[2] - nNME[3], nNME[2] + nNME[3]) )
   }
 
+  # Set sample size
   ns = 1:10
   ns = c(ns, ns*10, ns*100, 1000)
 
+  # plot randomly-resampled mean and sd for each sample size
   nTest = sapply(ns,summary4N)
-
   plot(range(ns), range(nTest, na.rm = TRUE), type = 'n', xlab = "Sample size",
        ylab = "Score", log = "x")
 
