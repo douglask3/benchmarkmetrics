@@ -11,6 +11,8 @@ print.NME <- function(x, ...) {
 summary.NME <- function(x, ...) {
 	summ = basic.summaryInfo(x)
     summ = c(summ, Scores = scores.summaryInfo(x))
+
+	class(summ) = "MetricSummary"
 	return(summ)
 }
 

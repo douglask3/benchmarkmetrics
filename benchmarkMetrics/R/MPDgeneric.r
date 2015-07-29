@@ -15,20 +15,18 @@ print.MPD <- function(x, ...) {
 summary.MPD <- function(x, ...) {
 	required.standard <- function(l) head(basic.summaryInfo(x[[l]])[-1], -1)
 
-	summ = list()
-
-	summ = determinIfWeightsUsed(x, summ)
-	summ$weights = list(weights = summ$weights)
+	summ = list(Metric  = 'Phase & Concentration',
+	            weights = determinIfWeightsUsed(x))
 
 	summ$Concentration = c(Metric='NME - Concentration',
                            required.standard('Concentration'))
-	summ$Concentration$Scores = scores.summaryInfo(x$Concentration)
+	summ$Concentration$Scores = scores.summaryInfo(x$Concentration)[[1]]
 
 	summ$Phase = c(Metric = 'MPD - Phase', required.standard('Phase'))
 	summ$Phase$Scores = standard.round(x$Phase$Score)
 
 
-	class(summ) <- 'listofMetric'
+	class(summ) <- 'MetricSummaryList'
 	return(summ)
 }
 
