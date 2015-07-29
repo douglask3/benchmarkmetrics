@@ -16,16 +16,16 @@ basic.summaryInfo <- function(x) {
                 "x:y Mean ratios"     = x$MeanRatio,
                 xVariance = x$xVar,
                 yVariance = x$yVar,
-                "x:y Variance ratios" = x$VarRatio)
+                "x:y Variance ratios" = x$VarRatio,
+				weights   = determinIfWeightsUsed(x))
 
-	summ = determinIfWeightsUsed(x,summ)
 	class(summ) = "listofMetric"
 	return(summ)
 }
 
-determinIfWeightsUsed <- function(x,summ) {
-	if (length(as.character(x$call)) < 4) return(c(summ, weights = 'non-defined'))
-		else return(c(summ, weights = 'defined'))
+determinIfWeightsUsed <- function(x) {
+	if (length(as.character(x$call)) < 4) return(weights = 'non-defined')
+		else return(weights = 'defined')
 }
 
 scores.summaryInfo <- function(x) {
