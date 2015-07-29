@@ -11,8 +11,8 @@ cat.NME.scores <- function(x) {
 
 basic.summaryInfo <- function(x) {
 	summ = list(Metric = strsplit(as.character(x$call)[1], '\\.')[[1]][1],
-                xMean = x$xMean,
-                yMean = x$yMean,
+                xMean     = x$xMean,
+                yMean     = x$yMean,
                 "x:y Mean ratios"     = x$MeanRatio,
                 xVariance = x$xVar,
                 yVariance = x$yVar,
