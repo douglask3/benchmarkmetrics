@@ -2,7 +2,7 @@ score <- function(x, ...) UseMethod("score")
 
 cat.NME.scores <- function(x) {
 	cat("Step1\t\tStep2\t\tStep3\n")
-	
+
 	scores=paste(standard.round(x$step1),
 				 standard.round(x$step2),
 				 standard.round(x$step3), sep="\t\t")
@@ -10,14 +10,14 @@ cat.NME.scores <- function(x) {
 }
 
 basic.summaryInfo <- function(x) {
-	summ = list(metic = strsplit(as.character(x$call)[1], '\\.')[[1]][1],
+	summ = list(Metric = strsplit(as.character(x$call)[1], '\\.')[[1]][1],
 		 	  xMean = x$xMean,
 		 	  yMean = x$yMean,
 		 	  "x:y Mean ratios" = x$MeanRatio,
 		 	  xVariance = x$xVar,
 		 	  yVariance = x$yVar,
 		 	  "x:y Variance ratios" = x$VarRatio)
-	
+
 	summ = determinIfWeightsUsed(x,summ)
 	class(summ) = "listofMetric"
 	return(summ)
