@@ -19,7 +19,7 @@ basic.summaryInfo <- function(x) {
                 "x:y Variance ratios" = x$VarRatio,
 				weights   = determinIfWeightsUsed(x))
 
-	class(summ) = "listofMetric"
+	class (summ) = "listofMetric"
 	return(summ)
 }
 
