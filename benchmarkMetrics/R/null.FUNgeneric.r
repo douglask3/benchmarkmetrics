@@ -60,17 +60,22 @@ print.NullModelSummary <- function(x) {
 
     printMultiModelMean(x[[1]]); cat("\n")
 
-    if (class(x[2]) == "list"  && length(x[2])>1)
+    if (class(x[2]) == "list"  && length(x[[2]])>1)
         fun = lapply else fun = sapply
     x = fun(x[2:3], standard.round)
 
-    printRand <- function(a, b, c) {
-        if (!is.null(a)) cat(a)
-        cat("\t", b, " +/- ", c, "\n")
+    printRand <- function(txt, mn, sd, mxlength = nchar(txt)) {
+        if (!is.null(txt)) {
+            cat(txt)
+            ntabs = floor((mxlength - nchar(txt))/8)
+            cat(rep('\t', ntabs))
+        }
+        cat("\t", mn, " +/- ", sd, "\n")
     }
 
     cat ("Random Model\n\t(Mean +/- sd)\n")
-    if (class(x) == "list") mapply(printRand, names(x[[1]]), x[[1]], x[[2]])
+    if (class(x) == "list")
+        mapply(printRand, names(x[[1]]), x[[1]], x[[2]], max(nchar(names(x[[1]]))))
         else  printRand(NULL, x[1], x[2])
     invisible()
 }
