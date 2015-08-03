@@ -10,8 +10,8 @@
 \title{Normalised Mean (Squared) Error}
 \description{Performs the Normalised Mean Error (NME) and Normalised Mean Squared Error (NMSE) comparison between model and observed.}
 \usage{
-  NME(x,y,w=NULL)
-  NMSE(x,y,w=NULL)
+  NME (x, y, w = NULL, allowRegridding = TRUE)
+  NMSE(x, y, w = NULL, allowRegridding = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

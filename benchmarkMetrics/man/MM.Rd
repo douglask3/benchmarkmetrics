@@ -10,8 +10,9 @@
 \title{Manhattan Metric/ Square Chord Distance}
 \description{Performs the Manhattan Metric (MM) and Square Chord Distance (SCD) comparison between modelled and observed data on fractional-type items.}
 \usage{
-  MM (x,y,w=NULL)
-  SCD(x,y,w=NULL)
+  MM (x, y, w = NULL, allowRegridding = TRUE)
+  SCD(x, y, w = NULL, allowRegridding = TRUE)
+
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
