@@ -62,7 +62,9 @@ makeTransparent <- function(col, transparency) {
 
 score.MPD <- function(x, ..) {
     if (names(x[[2]][2]) == "x") index = 1 else index = 1:3
-    return(c(phase = x[[1]][[1]], concentration = unlist(x[[2]][index])))
+    return(c(phase = x[[1]][[1]],
+		     concentration = unlist(x[[2]][index],
+				                    use.names = FALSE)))
 }
 
 null.MPD <- function(x, ...)

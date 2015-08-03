@@ -1,17 +1,6 @@
 print.nullModel <- function(x, ...) {
-
     printMultiModelMean(x[[1]])
-
-    cat("\n\n","Random-Resampling model scores:\n\t\t")
-
-    if (class(x[[2]]) == "matrix") {
-        pr = apply(x[[2]], 1, standard.round)
-        printStep <- function(i)
-            cat(colnames(pr)[i], "\n\t", pr[, i], "\n\n")
-
-        lapply(1:ncol(pr), printStep)
-    } else cat(standard.round(x[[2]]))
-    cat("\n")
+    printRandomResampleModels(x[[2]])
     invisible()
 }
 
@@ -26,6 +15,19 @@ printMultiModelMean <- function(x) {
 
     } else printStandard.round(x)
     invisible()
+}
+
+printRandomResampleModels <- function(x) {
+    cat("\n\n","Random-Resampling model scores:\n\t\t")
+
+    if (class(x) == "matrix") {
+        pr = apply(x, 1, standard.round)
+        printStep <- function(i)
+            cat(colnames(pr)[i], "\n\t", pr[, i], "\n\n\t\t")
+
+        lapply(1:ncol(pr), printStep)
+    } else cat(standard.round(x))
+    cat("\n")
 }
 
 catStandard.round <- function(...) {
