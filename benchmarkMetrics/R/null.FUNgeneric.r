@@ -55,7 +55,8 @@ summary.nullModel <- function(x, ...) {
 }
 
 print.NullModelSummary <- function(x) {
-    printMultiModelMean(x[[1]])
+
+    printMultiModelMean(x[[1]]); cat("\n")
 
     if (class(x[2]) == "list"  && length(x[2])>1)
         fun = lapply else fun = sapply
