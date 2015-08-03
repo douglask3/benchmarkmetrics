@@ -21,8 +21,7 @@ printMultiModelMean <- function(x) {
     if (length(x) > 1) {
         if (names(x[1]) == "phase") {
             cat("Phase\tConcentration\n\t")
-            names(x) = c("", paste('Step',1:3))
-            catStandard.round (x)
+            printStandard.round(x)
          } else catStandard.round (x)
 
     } else printStandard.round(x)
@@ -33,13 +32,13 @@ catStandard.round <- function(...) {
     x = standard.round(...)
     lapply(names(x), function(i) cat(i, "\t"))
     cat("\n\t")
-    lapply(standard.round(x), function(i) cat(i, "\t"))
+    lapply(x, function(i) cat(i, "\t"))
     invisible()
 }
 
 printStandard.round <- function(...) {
     x = standard.round(...)
-    cat("\t", x , "\n")
+    lapply(x, function(i) cat(i, "\t"))
 }
 
 summary.nullModel <- function(x, ...) {
