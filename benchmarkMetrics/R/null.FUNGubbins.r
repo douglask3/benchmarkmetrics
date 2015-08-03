@@ -1,13 +1,13 @@
-meanMod.FUN <- function(x, FUN, ...) {
+meanMod.FUN <- function(x, w = NULL, FUN, ...) {
     meanX = apply(x, 2, mean)
 
-    return(score(FUN(x, meanX, ...)))
+    return(score(FUN(x, meanX, w, ...)))
 }
 
-randMod.FUN <- function(x, FUN, nrs=1000, ...) {
+randMod.FUN <- function(x, w = NULL, FUN, nrs=1000, ...) {
     randComp <- function(i) {
         randX = x[sample(1:dim(x)[1]),]
-        return(score(FUN (x, randX, ...)))
+        return(score(FUN (x, randX, w, ...)))
     }
     return(sapply(1:nrs, randComp))
 }

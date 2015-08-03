@@ -8,7 +8,7 @@
 \title{Null Benchmark Models}
 \description{Performs mean and random-resampling null-models for given metric.}
 \usage{
-  null.FUN (x, FUN, n = 1000, ...)
+  null.FUN (x, FUN, w = NULL, n = 1000, ...)
   null.NME (x, ...)
   null.NMSE(x, ...)
   null.MM  (x, ...)
@@ -19,8 +19,9 @@
 \arguments{
   \item{x}{matrix, data.frame, raster or raster stacks, matching the format descibed by the corrisonponding metric}
   \item{FUN}{A function to perform null models on. Calling e.g. \code{null.FUN(x, NME)} is equivalent to calling \code{null.NME(x)}}
+  \item{w}{vector or raster of weights of the size relavent to the corrisponding metric. If NULL, all items are considered equally.}
   \item{n}{ number of resampled bootstraps to be performed for the randomly-resampled null model.}
-  \item{...}{Additional arguements used by the corrisponding metric and \code{null.FUN}}
+  \item{...}{Additional arguements used by the corrisponding metric and by \code{null.FUN}}
 }
 
 \details{
