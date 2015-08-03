@@ -2,7 +2,7 @@ print.MM <- function(x, ...) {
 	cat("Call:\n")
 	print(x$call)
 
-	cat("\nScore:\n\t\t\t\t")
+	cat("\nScore:\n\t")
 	cat(standard.round(x$score))
 	cat("\n")
     invisible()
