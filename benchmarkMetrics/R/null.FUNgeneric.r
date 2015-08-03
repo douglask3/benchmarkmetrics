@@ -10,8 +10,10 @@ printMultiModelMean <- function(x) {
     if (length(x) > 1) {
         if (names(x[1]) == "phase") {
             cat("Phase\tConcentration\n\t")
-            printStandard.round(x)
-         } else catStandard.round (x)
+            x = head(x, -1)
+            names(x) = c('', paste('step', 1:2))
+            catStandard.round(x)
+         } else catStandard.round(x)
 
     } else printStandard.round(x)
     invisible()

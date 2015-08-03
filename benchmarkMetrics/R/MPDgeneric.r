@@ -68,4 +68,4 @@ score.MPD <- function(x, ..) {
 }
 
 null.MPD <- function(x, ...)
-    null.FUN(x, MPD, items = TRUE, step1only = TRUE, ...)
+    null.FUN(x, MPD, items = TRUE, step1only = c(FALSE, TRUE), ...)

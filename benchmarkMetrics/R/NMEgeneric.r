@@ -38,5 +38,5 @@ plot.NME <- function(x, xlab='x', ylab='y', ...)  {
 score.NME <- function(x, ...)
     if (names(x[2]) == "x") return(x[[1]]) else return(unlist(x[1:3]))
 
-null.NME  <- function(x, ...) null.FUN(x, NME , items=FALSE, step1only=TRUE, ...)
-null.NMSE <- function(x, ...) null.FUN(x, NMSE, items=FALSE, step1only=TRUE, ...)
+null.NME  <- function(x, ...) null.FUN(x, NME , items=FALSE, ...)
+null.NMSE <- function(x, ...) null.FUN(x, NMSE, items=FALSE, ...)
