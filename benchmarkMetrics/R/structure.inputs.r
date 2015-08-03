@@ -9,8 +9,12 @@ structure.inputs <- function(x, y, w, itemize = FALSE, na.rm = TRUE) {
 
     w = setAsMatrix(w)
 
-    if (!itemize) c(x, y, w) := lapply(list(x, y, w), function(i)
+    if (!itemize) {
+        nc = ncol(x)
+        c(x, y, w) := lapply(list(x, y, w), function(i)
                                                 matrix(i, ncol = 1))
+        if (nc*length(w) == length(x)) w = as.matrix(rep(w, nc))
+    }
 
 	if (na.rm) {
         test = !is.na(apply(x, 1, sum)+apply(y, 1, sum))
