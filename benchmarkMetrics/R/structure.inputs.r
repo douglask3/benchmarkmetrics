@@ -1,23 +1,24 @@
 structure.inputs <- function(x, y, w, itemize = FALSE, na.rm = TRUE) {
-
     x <- setAsMatrix(x)
 	y <- setAsMatrix(y)
-    
+
     if (!all(dim(x) == dim(y))) y = matchDimensions(x, y)
 
 	if (is.null(w))
         if (itemize) w = array(1, dim(x)[1]) else w = array(1,dim(x))
-	w = as.matrix(w)
+
+    w = setAsMatrix(w)
 
     if (!itemize) c(x, y, w) := lapply(list(x, y, w), function(i)
                                                 matrix(i, ncol = 1))
+
 	if (na.rm) {
         test = !is.na(apply(x, 1, sum)+apply(y, 1, sum))
-
         x = as.matrix(x[test, ])
         y = as.matrix(y[test, ])
         w = as.matrix(w[test, ])
     }
+
     return(list(x, y, w))
 }
 
