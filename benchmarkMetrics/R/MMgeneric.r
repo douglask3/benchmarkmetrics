@@ -10,7 +10,7 @@ print.MM <- function(x, ...) {
 
 summary.MM <- function(x, ...) {
 	summ=basic.summaryInfo(x)
-	summ=c(summ, score=x$score)
+	summ=c(summ, Scores = x$score)
 
 	class(summ) = "MetricSummary"
 	return(summ)
