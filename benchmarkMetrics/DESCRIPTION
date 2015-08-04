@@ -1,7 +1,7 @@
 Package: benchmarkMetrics
 Type: Package
 Title: Benchmark Metrics
-Version: 1.0
+Version: 1.1
 Date: 2015-08-04
 Author: Douglas Kelley
 Maintainer: Douglas Kelley <douglas.kelley@mq.edu.au>
