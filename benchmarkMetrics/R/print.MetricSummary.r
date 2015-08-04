@@ -26,9 +26,42 @@ printMetricSummaryHead <- function(x) {
 
 printMeanVarSummaryTable <- function(x) {
 	cat(' Basic Variable Information:\n')
+	if (x$Metric == "MM") printMeanVarSummaryTableMM(x)
+		else printMeanVarSummaryTableStnd(x)
 	MeanVars = unlist(x[c('xMean',     'yMean',     'x:y Mean ratios',
 	                      'xVariance', 'yVariance', 'x:y Variance ratios')])
+}
+
+printMeanVarSummaryTableMM <- function(x) {
+	MeanVarsi = x[c('xMean',     'yMean',     'x:y Mean ratios',
+	               'xVariance', 'yVariance', 'x:y Variance ratios')]
+
+	MeanVars = matrix(NaN, ncol = 3, nrow = 0)
+	for (i in 1:length(MeanVarsi[[1]])) {
+		j = sapply(MeanVarsi,function(j) standard.round(j[i]))
+		j = t(matrix(j, nrow = 3))
+		MeanVars = rbind(MeanVars,j)
+	}
+
+	colnames(MeanVars) = c('x', 'y', 'x:y')
+	rnames = c(' Mean',' Variance')
+	nrows = nrow(MeanVars)
+
+	MeanVars = cbind(rep(rnames, floor(nrows)/2), MeanVars)
+	rnames = rep('', nrow(MeanVars))
+	rnames[seq(1, nrow(MeanVars), by = 2)] =
+		paste('item', 1:(floor(nrows)/2))
+	rownames(MeanVars) = rnames
+
+	print(MeanVars, quote = FALSE)
+}
+
+printMeanVarSummaryTableStnd <- function(x) {
+	MeanVars = unlist(x[c('xMean',     'yMean',     'x:y Mean ratios',
+	                      'xVariance', 'yVariance', 'x:y Variance ratios')])
+
 	MeanVars = t(matrix(standard.round(MeanVars), nrow = 3))
+	#MeanVars = matrix(standard.round(MeanVars), ncol = 3)
 	colnames(MeanVars) = c('x', 'y', 'x:y')
 	rownames(MeanVars) = c(' Mean',' Variance')
 
@@ -37,5 +70,6 @@ printMeanVarSummaryTable <- function(x) {
 
 printMetricSummaryScores <- function(x) {
 	x[['Scores']] = standard.round(x[['Scores']])
-	printMetricHead(x['Scores'])
+
+	printMetricCat(x['Scores'])
 }
