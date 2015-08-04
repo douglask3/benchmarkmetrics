@@ -1,18 +1,19 @@
 structure.inputs <- function(x, y, w, itemize = FALSE, na.rm = TRUE,
                              allowRegridding = TRUE) {
-
+    
     if (allowRegridding &&is.raster(x) && is.raster(y))
         c(x, y, w) := cropInputs(x,y,w)
 
     x = setAsMatrix(x)
 	y = setAsMatrix(y)
 
-    if (!all(dim(x) == dim(y))) y = matchDimensions(x, y)
-
-	if (is.null(w))
+    if (is.null(w))
         if (itemize) w = array(1, dim(x)[1]) else w = array(1,dim(x))
 
     w = setAsMatrix(w)
+
+    if (!all(dim(x) == dim(y))) y = matchDimensions(x, y)
+    if (length(w) == 1) w = array(w,dim(x))
 
     if (!itemize) {
         nc = ncol(x)
@@ -23,7 +24,7 @@ structure.inputs <- function(x, y, w, itemize = FALSE, na.rm = TRUE,
 
 	if (na.rm) {
         test = !is.na(apply(x, 1, sum) + apply(y, 1, sum)+ apply(w, 1, sum))
-        
+
         x = as.matrix(x[test, ])
         y = as.matrix(y[test, ])
         w = as.matrix(w[test, ])
