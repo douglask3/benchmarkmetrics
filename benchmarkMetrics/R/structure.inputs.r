@@ -2,7 +2,7 @@ structure.inputs <- function(x, y, w, itemize = FALSE, na.rm = TRUE,
                              allowRegridding = TRUE) {
 
     if (allowRegridding &&is.raster(x) && is.raster(y))
-        c(x, y, w) := cropInputs(x,y,w)
+        c(x, y, w) := cropInputs(x ,y, w)
 
     x = setAsMatrix(x)
 	y = setAsMatrix(y)
@@ -28,12 +28,12 @@ structure.inputs <- function(x, y, w, itemize = FALSE, na.rm = TRUE,
         x = as.matrix(x[test, ])
         y = as.matrix(y[test, ])
         w = as.matrix(w[test, ])
-    }
 
+    }
     return(list(x, y, w))
 }
 
-cropInputs <- function(x, y, w) {
+cropInputs <- function(x, y, w = NULL) {
     resampleIns <- function(r1, r2) {
         if (all(res(r1) == res(r2))) return(list(r1,r2))
         if (sum(res(r1)) > sum(res(r2))) r2 = resample(r2, r1)
@@ -49,7 +49,7 @@ cropInputs <- function(x, y, w) {
         r2 = crop(r2, r1)
         return(list(r1, r2))
     }
-    
+
     c(x, y) := cropIns(x, y)
     if (!is.null(w) && is.raster(w)) {
         c(x, w) := cropIns(x, w)
