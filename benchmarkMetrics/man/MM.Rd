@@ -22,6 +22,11 @@
   \item{w}{vector or raster of weights. If NULL, all items are considered equally.
            If a vector, must by the same length as first dimension of x and represents the
            weight of each point. If matrix or raster, than weight for each point and item.}
+  \item{allowRegridding}{Logical arguement used if x and y are both raster.
+           If TRUE and x and y are on different grids, then x and y are cropped
+           to the smallest shared extent and lowest reslution of either x and y.
+           If w is raster as well, this will also be regridded to smallest extent and lowest
+           resolution of x or y.}
 }
 \details{MM measure the absolute distamce between items of simulated and observed items.
 

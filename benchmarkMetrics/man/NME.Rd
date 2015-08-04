@@ -17,6 +17,11 @@
 \arguments{
   \item{x, y}{matrix, data.frame, raster or raster stacks. Where y is the approximation to x}
   \item{w}{vector or raster of weights or same size as x. If NULL, all items are considered equally.}
+  \item{allowRegridding}{Logical arguement used if x and y are both raster.
+           If TRUE and x and y are on different grids, then x and y are cropped
+           to the smallest shared extent and lowest reslution of either x and y.
+           If w is raster as well, this will also be regridded to smallest extent and lowest
+           resolution of x or y.}
 }
 
 \details{
