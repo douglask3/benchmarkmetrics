@@ -14,7 +14,7 @@
       An object of class ts
   }
 }
-value{
+\value{
     The resultant matrix appears in the same shape with same values as the vector or matrix when using print(ts) with the same colnames and rownames as displayed by print(x). However, the resultant matrix is usable (not just displayable) as a matrix
 }
 \author{Douglas Kelley \email{douglas.i.kelley@gmail.com}}
