@@ -22,7 +22,8 @@ structure.inputs <- function(x, y, w, itemize = FALSE, na.rm = TRUE,
     }
 
 	if (na.rm) {
-        test = !is.na(apply(x, 1, sum)+apply(y, 1, sum))
+        test = !is.na(apply(x, 1, sum) + apply(y, 1, sum)+ apply(w, 1, sum))
+        
         x = as.matrix(x[test, ])
         y = as.matrix(y[test, ])
         w = as.matrix(w[test, ])
