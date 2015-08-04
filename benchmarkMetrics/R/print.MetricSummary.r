@@ -26,7 +26,7 @@ printMetricSummaryHead <- function(x) {
 
 printMeanVarSummaryTable <- function(x) {
 	cat(' Basic Variable Information:\n')
-	if (x$Metric == "MM") printMeanVarSummaryTableMM(x)
+	if (x$Metric == "MM" || x$Metric == "SCD") printMeanVarSummaryTableMM(x)
 		else printMeanVarSummaryTableStnd(x)
 	MeanVars = unlist(x[c('xMean',     'yMean',     'x:y Mean ratios',
 	                      'xVariance', 'yVariance', 'x:y Variance ratios')])
