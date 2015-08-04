@@ -1,6 +1,6 @@
 structure.inputs <- function(x, y, w, itemize = FALSE, na.rm = TRUE,
                              allowRegridding = TRUE) {
-    
+
     if (allowRegridding &&is.raster(x) && is.raster(y))
         c(x, y, w) := cropInputs(x,y,w)
 
@@ -43,13 +43,13 @@ cropInputs <- function(x, y, w) {
 
     cropIns <- function(r1, r2) {
         c(r1, r2) := resampleIns(r1, r2)
-        if (extent(b[[1]]) == extent(b[[2]])) return(list(r1, r2))
+        if (extent(r1) == extent(r2)) return(list(r1, r2))
 
         r1 = crop(r1, r2)
         r2 = crop(r2, r1)
         return(list(r1, r2))
     }
-
+    
     c(x, y) := cropIns(x, y)
     if (!is.null(w) && is.raster(w)) {
         c(x, w) := cropIns(x, w)
