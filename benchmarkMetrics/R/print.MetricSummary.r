@@ -49,8 +49,10 @@ printMeanVarSummaryTableMM <- function(x) {
 
 	MeanVars = cbind(rep(rnames, floor(nrows)/2), MeanVars)
 	rnames = rep('', nrow(MeanVars))
-	rnames[seq(1, nrow(MeanVars), by = 2)] =
-		paste('item', 1:(floor(nrows)/2))
+
+	rn = names(x[[2]])
+
+	rnames[seq(1, nrow(MeanVars), by = 2)] = rn
 	rownames(MeanVars) = rnames
 
 	print(MeanVars, quote = FALSE)
