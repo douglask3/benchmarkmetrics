@@ -6,6 +6,8 @@ export(NME, NME.default, NMSE, NMSE.default,
        print.MPD, summary.MPD, plot.MPD, score.MPD, null.MPD,
        print.nullModel, summary.nullModel, plot.nullModel,
        print.NullModelSummary, print.MetricSummaryList, print.MetricSummary,
-       score, atans, PolarConcentrationAndPhase, ts2matrix)
+       score, atans, ts2matrix,
+       PolarConcentrationAndPhase, PolarConcentrationAndPhase.RasterStack,
+                                   PolarConcentrationAndPhase.RasterBrick)
 
 import(plotrix)
