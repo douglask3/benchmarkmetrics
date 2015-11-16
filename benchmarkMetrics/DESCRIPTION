@@ -1,8 +1,8 @@
 Package: benchmarkMetrics
 Type: Package
 Title: Benchmark Metrics
-Version: 1.1
-Date: 2015-08-04
+Version: 2.0
+Date: 2015-11-16
 Author: Douglas Kelley
 Maintainer: Douglas Kelley <douglas.kelley@mq.edu.au>
 Description: Measures distances between modelled and obscured data, developed for the benchmarking of vegetation models.
