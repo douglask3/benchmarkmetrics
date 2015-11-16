@@ -19,7 +19,7 @@ structure.inputs.nulls <- function(x, w, items = FALSE, allowRegridding = TRUE) 
         is.raster(x) && is.raster(w))
         c(x, w) := cropInputs(x, w)
     x = setAsMatrix(x)
-    
+
     if (wNtNull) w = setAsMatrix(w)
 
     if (!items) {
@@ -31,6 +31,6 @@ structure.inputs.nulls <- function(x, w, items = FALSE, allowRegridding = TRUE) 
     if (wNtNull) mask = mask & !is.na(apply(w,1,sum))
 
     x = as.matrix(x[mask,])
-    if (wNtNull) w = as.matrix(w[mask,])
+    if (wNtNull && length(w) > 1) w = as.matrix(w[mask,])
     return(list(x, w))
 }
