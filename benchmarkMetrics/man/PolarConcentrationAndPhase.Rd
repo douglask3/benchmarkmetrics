@@ -133,6 +133,8 @@
   ##############################################################################
   ## Raster                                                                   ##
   ##############################################################################
+  require(raster)
+
   b = brick(system.file("external/rlogo.grd", package = "raster"))
   b = PolarConcentrationAndPhase(b)
   dev.new()
