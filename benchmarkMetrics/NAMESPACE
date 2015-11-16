@@ -7,7 +7,8 @@ export(NME, NME.default, NMSE, NMSE.default,
        print.nullModel, summary.nullModel, plot.nullModel,
        print.NullModelSummary, print.MetricSummaryList, print.MetricSummary,
        score, atans, ts2matrix,
-       PolarConcentrationAndPhase, PolarConcentrationAndPhase.RasterStack,
-                                   PolarConcentrationAndPhase.RasterBrick)
+       PolarConcentrationAndPhase, PolarConcentrationAndPhase.default,
+            PolarConcentrationAndPhase.RasterStack,
+            PolarConcentrationAndPhase.RasterBrick)
 
-import(plotrix)
+import(plotrix, raster)
