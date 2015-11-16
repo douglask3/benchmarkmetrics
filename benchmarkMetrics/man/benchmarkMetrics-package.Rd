@@ -97,13 +97,16 @@ Kelley, D. I., Prentice, I. C., Harrison, S. P., Wang, H., Simard, M., Fisher, J
        xaxt = 'n',xlab = 'Month',ylab = '', type = 'n')
   axis(1, at=1:12, c('J','F','M','A','M','J','J','A','S','O','N','D'))
 
-  poly <- function(y)
-    polygon(c(1:12, 12:1), c(y + 100, rev(y) - 100), col = col, border = NA)
-  addSeasonal <- function(nm, col) apply(ts2matrix(SeatbeltsLaw[, nm]), 1, poly)
+  poly <- function(y, angle, col)
+    polygon(c(1:12, 12:1), c(y + 100, rev(y) - 100), density = 25, angle = angle,
+            col = col, border = NA)
 
-  addSeasonal('drivers' ,'#00000055')
-  addSeasonal('modNoLaw','#FF000022')
-  addSeasonal('modLaw'  ,'#0000FF11')
+  addSeasonal <- function(nm, col, angle)
+    apply(ts2matrix(SeatbeltsLaw[, nm]), 1, poly, col, angle)
+
+  addSeasonal('drivers' ,  45, '#000000')
+  addSeasonal('modNoLaw', -45, '#FF0000')
+  addSeasonal('modLaw'  ,  00, '#0000FF')
 
   mpd.NoLaw = MPD(SeatbeltsLaw[,'drivers'],SeatbeltsLaw[,'modNoLaw'])
   mpd.Law   = MPD(SeatbeltsLaw[,'drivers'],SeatbeltsLaw[,'modLaw'  ])
