@@ -29,5 +29,5 @@ Info on the main functions can be found using:
 ?MPD
 
 ## More Info
-[click here](douglask3.github.io/docs/benchmarkMetrics-manual.pdf) for documentation.
+[click here](http://douglask3.github.io/docs/benchmarkMetrics-manual.pdf) for documentation.
 
