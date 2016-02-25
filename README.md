@@ -13,20 +13,24 @@ Scores of metrics are easy to interpret for model everulation and inter-model co
 
 ## How TO Use
 To insatll the package, first make sure you have R/Rstudio running and you have installed and loaded devtools:
-install.packages('devtools')
-library(devtools)
+
+    install.packages('devtools')
+    library(devtools)
 
 Then run the following command to install and load Benchmark Metrics:
-install_github('douglask3/benchmarkmetrics/benchmarkMetrics')
-library(benchmarkMetrics)
+
+    install_github('douglask3/benchmarkmetrics/benchmarkMetrics')
+    library(benchmarkMetrics)
 
 To see help files and examples of how to use:
-?benchmarkMetrics
+
+    ?benchmarkMetrics
 
 Info on the main functions can be found using:
-?NME
-?MM
-?MPD
+
+    ?NME
+    ?MM
+    ?MPD
 
 ## More Info
 [click here](http://douglask3.github.io/docs/benchmarkMetrics-manual.pdf) for documentation.
