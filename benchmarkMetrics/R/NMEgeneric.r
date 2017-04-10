@@ -19,12 +19,12 @@ summary.NME <- function(x, ...) {
 plot.NME <- function(x, xlab='x', ylab='y', ...)  {
     cols = c('red', 'green', 'blue')
     pchs = c(19, 4, 1)
-    yi   = x$y
+	xi   = x$x
 
-    plot(range(x$x123), range(yi), type='n', xlab = xlab, ylab = ylab, ...)
+    plot(range(xi), range(x$y123), type='n', xlab = xlab, ylab = ylab, ...)
 
     for (i in 1:3) {
-        xi = x$x123[, i]
+        yi = x$y123[, i]
         points(xi, yi, pch = pchs[i], col = cols[i])
         lines(xi, predict(lm(yi ~ xi)), col = cols[i])
     }
