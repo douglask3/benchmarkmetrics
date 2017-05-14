@@ -1,11 +1,12 @@
 print.nullModel <- function(x, ...) {
-    printMultiModelMean(x[[1]])
-    printRandomResampleModels(x[[2]])
+    printMultiModelMean(x[[1]], "median")
+    printMultiModelMean(x[[2]])
+    printRandomResampleModels(x[[3]])
     invisible()
 }
 
-printMultiModelMean <- function(x) {
-    cat("Mean model score:\n\t")
+printMultiModelMean <- function(x, type = "Mean") {
+    cat(type, "model score:\n\t")
 
     if (length(x) > 1) {
         if (names(x[1]) == "phase") {
@@ -16,11 +17,12 @@ printMultiModelMean <- function(x) {
          } else catStandard.round(x)
 
     } else printStandard.round(x)
+	cat('\n')
     invisible()
 }
 
 printRandomResampleModels <- function(x) {
-    cat("\n\n","Random-Resampling model scores:\n\t\t")
+    cat("Random-Resampling model scores:\n\t\t")
 
     if (class(x) == "matrix") {
         pr = apply(x, 1, standard.round)
@@ -48,11 +50,12 @@ printStandard.round <- function(...) {
 summary.nullModel <- function(x, ...) {
     if (length(x[[1]]) > 1) comb = list else comb = c
 
-    if (class(x[[2]]) != 'matrix') x[[2]] = t(as.matrix(x[[2]]))
-
-    modSum=comb("Mean Model"             =        x[[1]],
-                "Mean Random-Resampling" =  apply(x[[2]],1,mean),
-                "sd Randon Resampling"   =  apply(x[[2]],1,sd  ))
+    if (class(x[[3]]) != 'matrix') x[[3]] = t(as.matrix(x[[3]]))
+	
+    modSum=comb("Median Model"           =        x[[1]],
+	            "Mean Model"             =        x[[2]],
+                "Mean Random-Resampling" =  apply(x[[3]],1,mean),
+                "sd Randon Resampling"   =  apply(x[[3]],1,sd  ))
 
     class (modSum) = "NullModelSummary"
     return(modSum)
@@ -60,11 +63,12 @@ summary.nullModel <- function(x, ...) {
 
 print.NullModelSummary <- function(x) {
 
-    printMultiModelMean(x[[1]]); cat("\n")
+    printMultiModelMean(x[[1]], "median")
+    printMultiModelMean(x[[2]])
 
-    if (class(x[2]) == "list"  && length(x[[2]])>1)
+    if (class(x[3]) == "list"  && length(x[[3]])>1)
         fun = lapply else fun = sapply
-    x = fun(x[2:3], standard.round)
+    x = fun(x[3:4], standard.round)
 
     printRand <- function(txt, mn, sd, mxlength = nchar(txt)) {
         if (!is.null(txt)) {
@@ -84,12 +88,12 @@ print.NullModelSummary <- function(x) {
 
 plot.nullModel <- function(x, main='Null Model Results',
                            metrixName=NULL,...) {
-    if (class(x[[2]]) != "matrix") {
+    if (class(x[[3]]) != "matrix") {
         plot.nullModelInd(x, ...)
     } else {
         if (any(par("mfrow") == c(1, 1))) par(mfrow = c(2, 1))
         plotInd <- function(i1, i2, ttl) {
-            xi = list(x[[1]][i1], x[[2]][i2,], x[3])
+            xi = list(x[[1]][i1], x[[2]][i1], x[[3]][i2,], x[4])
             class(xi) = class(x)
             plot.nullModelInd(xi, main=paste(main, ': ', ttl, ep=""), ...)
         }
@@ -102,23 +106,23 @@ plot.nullModel <- function(x, main='Null Model Results',
 plot.nullModelInd <- function(x, xlab='', ylab='',
             main = 'Null Model Results', xlim = NULL,
             legend = FALSE, ...) {
-
+	
     if(is.null(xlim)) {
-        xlim = range(x[[1]], x[[2]], na.rm = TRUE)
+        xlim = range(x[[1]], x[[2]], x[[3]], na.rm = TRUE)
         if (xlim[1] == min(x[[1]], na.rm = TRUE))
             xlim[1] = xlim[1] - 0.2 * diff(xlim)
-        if (xlim[2] == max(x[[1]], na.rm = TRUE))
+        if (xlim[2] == max(x[[2]], na.rm = TRUE))
             xlim[2] = xlim[2] + 0.2 * diff(xlim)
     }
     # Plot histergram of random model
-    max(hist(x[[2]], ceiling(length(x[[2]]) / 10), xlim = xlim,
+    max(hist(x[[3]], ceiling(length(x[[3]]) / 10), xlim = xlim,
              yaxt = 'n', xlab = xlab, ylab = ylab,
              main = main)$density)
 
     # Calculate summary of null scores
     x = summary(x)
 
-    randRange =  x[[2]] + x[[3]] * c(-1, 1)
+    randRange =  x[[3]] + x[[4]] * c(-1, 1)
 
     # Plot std range as polygon
     polygon(rep(randRange, each = 2), c(0, 1, 1, -1) * 9E9,
@@ -130,13 +134,17 @@ plot.nullModelInd <- function(x, xlab='', ylab='',
         lines(rep(xi, 2),c(0, 9E9), col = col, ...)
 
     x[[1]]   = x[[1]][!is.na(x[[1]])]
+    x[[2]]   = x[[2]][!is.na(x[[2]])]
     x[[1]]   = unlist(lapply(unique(x[[1]]),
                              function(i) x[[1]][x[[1]] == i][1]))
+    x[[2]]   = unlist(lapply(unique(x[[2]]),
+                             function(i) x[[2]][x[[2]] == i][1]))
     meanCols = c('#FF0000', '#BBBB00', '#00FF00')[1:length(x[[1]])]
-    mapply(verLine, x[[1]], meanCols)
-    verLine(x[[2]])
-    verLine(x[[2]]-x[[3]], lty=2)
-    verLine(x[[2]]+x[[3]], lty=2)
+    mapply(verLine, x[[1]], meanCols, lty = 2)
+    mapply(verLine, x[[2]], meanCols)
+    verLine(x[[3]])
+    verLine(x[[3]]-x[[4]], lty=2)
+    verLine(x[[3]]+x[[4]], lty=2)
 
     if (length(x[[1]])>1) names(x[[1]]) = paste('Step', 1:length(x[[1]]))
 
@@ -152,7 +160,7 @@ nullModelLegend <- function(meanCols, meanNames, ...) {
     legendStandard <- function(...)
         legend(x=xl, y=yl * 1.2, bty='n', legtxt, xpd=TRUE, ...)
 
-    legtxt = 'Mean Model'
+    legtxt = c('Median Model', 'Mean Model')
     if (length(meanNames) > 1) {
         legtxt   = c(legtxt, paste('    ', meanNames))
         meanCols = c('transparent', meanCols)
@@ -162,10 +170,10 @@ nullModelLegend <- function(meanCols, meanNames, ...) {
                paste('    ', c('frequancy', 'mean', 'standard deviation')))
 
     ## Add lines and symbols
-    lty = c(rep(1, length(meanCols)), 0, 0, 1,  2 )
-    pch = c(rep(1, length(meanCols)), 0, 0, NA, NA)
+    lty = c(rep(c(2, 1), each = length(meanCols)), 0, 0, 1,  2 )
+    pch = c(rep(NA, 2*length(meanCols)), 0, 0, NA, NA)
 
-    col = c(meanCols, 'transparent', 'black', 'blue', 'blue')
+    col = c(meanCols, meanCols, 'transparent', 'black', 'blue', 'blue')
     legendStandard(lty = lty, pch = pch, col = col, ...)
 
     ## Add polygn shades
