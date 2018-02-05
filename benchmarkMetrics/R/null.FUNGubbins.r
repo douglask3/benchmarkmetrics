@@ -1,7 +1,8 @@
 medianMod.FUN <- function(x, w = NULL, FUN, ...) {
 	medianX = apply(x, 2, median)
 	
-	return(score(FUN(x, medianX, w, ...)))
+	scores = score(FUN(x, medianX, w, ...))
+	return(scores)
 }
 
 meanMod.FUN <- function(x, w = NULL, FUN, ...) {
