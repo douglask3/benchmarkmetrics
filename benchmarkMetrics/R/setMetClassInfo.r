@@ -1,5 +1,6 @@
 setMetClassInfo <- function(out, x, y, w,
-                            varFun = absVar, itemize = FALSE, DiffFun = '/') {
+                            varFun = absVar, itemize = FALSE, DiffFun = '/', 
+							scoreMat = NULL) {
 	
 	if (is.character(DiffFun)) DiffFun = match.fun(DiffFun)
 	
@@ -9,7 +10,14 @@ setMetClassInfo <- function(out, x, y, w,
 	
 	c(x, y) := setColNames(x, y)
 	
-	if (itemize) {
+	if (is.null(itemize)) {
+		meanMe <- function(v) {
+			uniqv <- unique(v)
+			uniqv[which.max(tabulate(match(v, uniqv)))]
+		}
+		varMe <- function(v) mean(scoreMat[meanMe(v), v])
+	
+	} else if(itemize) {
 		meanMe 	<- function(x, ...)  apply(x, 2, mean  )
 		varMe 	<- function(x, ...)  apply(x, 2, absVar)
 	} else {
