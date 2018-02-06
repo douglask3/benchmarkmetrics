@@ -38,10 +38,17 @@ structure.inputs.nulls <- function(x, w, items = FALSE, allowRegridding = TRUE) 
         if (wNtNull) w = as.matrix(as.vector(w))
     }
 
-    mask = !is.na(apply(x,1,sum))
-    if (wNtNull) mask = mask & !is.na(apply(w,1,sum))
+	Mask <- function() {
+		mask = !is.na(apply(x,1,sum))
+		if (wNtNull) mask = mask & !is.na(apply(w,1,sum))
 
-    x = as.matrix(x[mask,])
-    if (wNtNull && length(w) > 1) w = as.matrix(w[mask,])
+		x = as.matrix(x[mask,])
+		if (wNtNull && length(w) > 1) w = as.matrix(w[mask,])
+		return(list(x, w))
+	}
+	
+	MaskOut = try(Mask(), silent = TRUE)
+	if (class(MaskOut) != "try-error") c(x, w) := MaskOut
+
     return(list(x, w))
 }

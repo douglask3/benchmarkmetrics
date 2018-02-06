@@ -1,7 +1,8 @@
 check.and.norm.performDMM <- function(mat, x, y, w, 
 								      matAsFile = is.character(mat), 
 									  row1AsNames = is.character(mat[1,1]), 
-									  traitID = TRUE, allowRegridding = TRUE, ...) {
+									  traitID = TRUE, itemNames = NULL,
+									  allowRegridding = TRUE, ...) {
 	
 	if (matAsFile) mat = read.csv(mat, stringsAsFactors = FALSE)
 	
@@ -11,6 +12,9 @@ check.and.norm.performDMM <- function(mat, x, y, w,
 		names = mat[,1]
 		mat = mat[,-1]
 	} else names = index
+	
+	if (!is.null(itemNames)) names = itemNames
+	
 	
 	normaliseTrait <- function(index) 
 		mat[index] / apply(mat[index], 1, sum)
@@ -37,19 +41,27 @@ check.and.norm.performDMM <- function(mat, x, y, w,
 		y = nrow(mat)
 	}
 	
+	x = convert2numeric4DMM(x, names)
+	y = convert2numeric4DMM(y, names)
 	c(x, y, w) := structure.inputs(x, y, w, allowRegridding = allowRegridding)
 	
 	out = setDMMclassVars(mat, names, nTraits, x, y, w, ...)
 	return(out)
 }
+
+convert2numeric4DMM <- function(v, names = NULL, mat = NULL) {
+	if (is.null(names)) names = mat[,1]
 	
+	if (!is.numeric(v)) v = sapply(v, function(i) which(names == i))
+	return(v)
+}
 
 setDMMclassVars <- function(mat, names, nTraits, x, y, w, varFun = absVar, metFun = MMForm,
 	                       step1only = NULL, ...) {
 						   				  
 	DMM.point <- function(b1, b2) 
 		metFun(mat[b1,], mat[b2,], 1) / nTraits
-	index = 1:(dim(mat)[1])
+	index = 1:nrow(mat)
 	
 	
 	scores = sapply(index, function(...) sapply(index, function(b1, b2) DMM.point(b1, b2), ...))
