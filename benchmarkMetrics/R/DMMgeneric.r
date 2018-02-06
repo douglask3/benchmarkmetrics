@@ -8,7 +8,7 @@ summary.DMM <- function(x, ...) {
 	
 	summ = c(summ, Scores = x$score,
 			scoreMat = list(x$scoreMat), 
-			similarityTable = list(similarityTable.DMM(x)))
+			similarityTable = similarityTable.DMM(x)[1])
 	
 	class(summ) = "DescreteMetricSummary"
 	return(summ)
@@ -30,16 +30,68 @@ similarityTable.DMM <- function(x) {
 	
 	colnames(z) = colnames(x$scoreMat)[ix]
 	rownames(z) = colnames(x$scoreMat)[iy]
-	return(z)
+	return(list(z, ix, iy))
 }
 
+plot.DMM <- function(x, ...) {
+	c(countTab, ix, iy) := similarityTable.DMM(x)
+	scoreTab = countTab
+	
+	is = rep(ix, each = length(iy))
+	js = rep(iy, length(ix))
+	
+	scoreTab[] =  mapply(function(i,j) x$scoreMat[i,j], is, js)
+	
+	yrange = c(0,  max(scoreTab[countTab > 0]))
+	
+	plot(c(0.5, length(ix) + 0.5), yrange, type = 'n', axes = FALSE, xlab = '', ylab = '')
+	
+	names = colnames(x$scoreMat)[ix]
+	names = sapply(names, convertStr2multiLine)
+	
+	axis(1, at = 1:length(ix), labels = names)
+	axis(2)
+	
+	findPoints <- function(i, j) {
+		x = j
+		y   = scoreTab[i,j]
+		cex = countTab[i,j]
+		
+		name = rownames(countTab)[i]
+		name = convertStr2multiLine(name)
+		
+		return(c(x, y, cex, name, -0.15 ))
+	}
+	
+	pnts = c()
+	for (i in 1:nrow(countTab)) for (j in 1:ncol(countTab)) pnts = rbind(pnts, findPoints(i,j))
+	
+	for (i in 1:(nrow(pnts)-1)) for (j in (i+1):nrow(pnts)) {
+		if (pnts[i, 1] == pnts[j, 1] && 
+			abs(as.numeric(pnts[i,2]) - as.numeric(pnts[j, 2])) < 0.1 &&
+			as.numeric(pnts[i,3]) > 0.0 && as.numeric(pnts[j,3]) > 0.0) {
+			 pnts[i,1] = as.numeric(pnts[i,1]) - 0.1
+			 pnts[j,1] = as.numeric(pnts[j,1]) + 0.1
+			 pnts[j,5] = 0.1
+		}
+	}
+	
+	addPoints <-  function(pnt) {
+		x = as.numeric(pnt[1]); y = as.numeric(pnt[2]); cex = 2 * as.numeric(pnt[3]) / max(as.numeric(pnts[,3]))
+		if (cex == 0) return()
+		points(x, y, cex = cex, pch = 19)
+		text(pnt[4], x = x + as.numeric(pnt[5]), y = y)
+	}
+	
+	apply(pnts, 1, addPoints )
+}
 
-plot.DMM <- function(x, ...)  {
+boxplot.DMM <- function(x, ...)  {
 	
 	index = unique(x$x)	
 	xsplit = lapply(index, function(i) x$diff[x$x == i])
-	names = colnames(x$scoreMat)[index]
 	
+	names = colnames(x$scoreMat)[index]
 	names = sapply(names, convertStr2multiLine)
 	
 	boxplot(xsplit, axes = FALSE)
