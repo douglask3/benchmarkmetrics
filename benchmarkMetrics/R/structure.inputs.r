@@ -6,13 +6,14 @@ structure.inputs <- function(x, y, w, itemize = FALSE, na.rm = TRUE,
 	
     x = setAsMatrix(x)
 	y = setAsMatrix(y)
+	
+	if (!all(dim(x) == dim(y))) c(x, y) := matchDimensions(x, y)
 
     if (is.null(w))
         if (itemize) w = array(1, dim(x)[1]) else w = array(1,dim(x))
 
     w = setAsMatrix(w)
-
-    if (!all(dim(x) == dim(y))) y = matchDimensions(x, y)
+	
     if (length(w) == 1) w = array(w,dim(x))
 
     if (!itemize) {
@@ -77,7 +78,10 @@ matchDimensions <- function(x, y, y0 = y, tryC = 0) {
         y = aperm(y)
         matchDimensions(x, y, y0, tryC)
     }
-
-    y = t(matrix(rep(y, length.out = length(x)), ncol = nrow(x)))
-    return(y)
+	
+	if (length(x) < length(y))
+		x =t(matrix(rep(x, length.out = length(y)), ncol = nrow(y)))
+	else
+		y = t(matrix(rep(y, length.out = length(x)), ncol = nrow(x)))
+    return(list(x, y))
 }

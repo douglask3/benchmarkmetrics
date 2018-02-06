@@ -127,5 +127,12 @@ convertStr2multiLine <- function(name)  {
 
 score.DMM <- function(x, ...) unlist(x[1])
 
-#null.DMM  <- function(x, ...) null.FUN(x, DMM , items=TRUE, ...)
+meanMod.DMM <- function(x) 
+	rep(x, each = length(x))#ncol = length(x), nrow = length(x))
+
+
+medianMod.DMM <- function(x, ...)
+	return(list('Median', x))
+
+null.DMM  <- function(mat, x, ...) null.FUN(x, DMM , items=TRUE, medianFun = medianMod.DMM, meanFun = meanMod.DMM, mat = mat,...)
 #null.DSCD <- function(x, ...) null.FUN(x, DSCD, items=TRUE, ...)

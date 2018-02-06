@@ -3,9 +3,6 @@ check.and.norm.performDMM <- function(mat, x, y, w,
 									  row1AsNames = is.character(mat[1,1]), 
 									  traitID = TRUE, ...) {
 	
-	c(x, y, w) := structure.inputs(x, y, w)
-
-	
 	if (matAsFile) mat = read.csv(mat, stringsAsFactors = FALSE)
 	
 	index = 1:(dim(mat)[1])
@@ -30,7 +27,14 @@ check.and.norm.performDMM <- function(mat, x, y, w,
 		}
 		nTraits = length(IDs)
 	}
-
+	
+	if (is.list(y) && (y[[1]] == "Median" || y[[1]] == "median")) {
+		mat = rbind(mat, apply(mat, 2, function(i) mean(i[y[[2]]])))
+		names = c(names, 'Median')
+		y = nrow(mat)
+	}
+	
+	c(x, y, w) := structure.inputs(x, y, w)
 	
 	out = setDMMclassVars(mat, names, nTraits, x, y, w, ...)
 	return(out)

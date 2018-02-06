@@ -1,13 +1,17 @@
-medianMod.FUN <- function(x, w = NULL, FUN, ...) {
-	medianX = apply(x, 2, median)
-	
-	scores = score(FUN(x, medianX, w, ...))
-	return(scores)
+medianMod.FUN <- function(x, w = NULL, FUN, medianFun = median,...) {
+	medianX = nullModFun(x, medianFun)
+	return(score(FUN(x, medianX, w, ...)))
 }
 
-meanMod.FUN <- function(x, w = NULL, FUN, ...) {
-    meanX = apply(x, 2, mean)
+nullModFun <- function(x, fun) {
+	if (ncol(x) == 1) X = fun(x)
+	else X = apply(x, 2, fun)
+	return(X)
+}
 
+
+meanMod.FUN <- function(x, w = NULL, FUN, meanFun = mean, ...) {
+	meanX = nullModFun(x, meanFun)
     return(score(FUN(x, meanX, w, ...)))
 }
 
