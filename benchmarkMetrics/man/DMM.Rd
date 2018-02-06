@@ -22,7 +22,7 @@
 \arguments{
   \item{mat}{filename or matrix describing items in terms of affinity to traits. 
 		     If filename, \code{mat} should point to a csv file (e.g. 
-			 \link{https://raw.githubusercontent.com/douglask3/benchmarkmetrics/master/benchmarkMetrics/data/biomeAffinityMat.csv}). 
+			 \link{https://raw.githubusercontent.com/douglask3/benchmarkmetrics/master/online-resource/biomeAffinityMatrix.csv}). 
 			 First column can 
 			 be name of item when \code{row1AsNames} is set to \code{TRUE}}
   \item{x, y}{matrix, data.frame, raster or raster stack with either 
@@ -87,12 +87,13 @@ To follow
 }
 \examples{
   
-	mat = 'benchmarkMetrics/data/affinityMat.csv'
+	## biomeAffinityMatrix is an example dataset provided as part of the package
+	print(biomeAffinityMatrix)
 
 	obs = c(1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4)
 	sim = c(1, 2, 3, 3, 4, 2, 1, 2, 3, 2, 1, 1, 2, 3, 3, 5, 2, 4, 5)
 
-	out = DMM(mat, obs, sim)
+	out = DMM(biomeAffinityMatrix, obs, sim)
 	
 	print(out)
 	cat("\n=======\n")
