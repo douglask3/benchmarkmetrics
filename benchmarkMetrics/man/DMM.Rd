@@ -103,11 +103,8 @@ To follow
 	out = DMM(biomeAffinityMatrix, obs, sim)
 	
 	print(out)
-	cat("\n=======\n")
 	print(score(out))
-	cat("\n=======\n")
-	print(summary(out))
-	cat("\n=======\n\n")	
+	print(summary(out))	
 	
 	## can feed in biome names instead
 	obs = biomeAffinityMatrix[obs,1]
@@ -116,7 +113,6 @@ To follow
 	
 	## to get the same result
 	out = DMM(biomeAffinityMatrix, obs, sim)
-	cat("\n")
 	print(out)
 	
 	##################
@@ -129,8 +125,7 @@ To follow
 	#########################
 	## Run the null models ##
 	#########################
-	null = null.DMM(biomeAffinityMatrix, obs, n = 100)
-	cat("\n\n Null Model: \n")
+	null = null.DMM(biomeAffinityMatrix, obs, n = 100) ## iteractions set to 100 to speed up example
 	print(summary(null))
 	dev.new()
 	plot(null, legend = TRUE)
