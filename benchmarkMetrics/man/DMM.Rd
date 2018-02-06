@@ -119,8 +119,13 @@ To follow
 	## plot results ##
 	##################
 	par(mfrow = c(2,1), mar = c(2, 4, 0, 1))
-	boxplot(out)
 	plot(out)
+	boxplot(out)
+	
+	## combine both
+	dev.new()
+	plot(out)
+	boxplot(out, add = TRUE)
 	
 	#########################
 	## Run the null models ##
