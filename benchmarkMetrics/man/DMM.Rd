@@ -100,16 +100,15 @@ To follow
 	print(score(out))
 	cat("\n=======\n")
 	print(summary(out))
-	cat("\n=======\n")
+	cat("\n=======\n")	
 	
-	null = null.DMM(mat, obs)
-	
-	par(mfrow = c(3, 1), mar = c(2, 4, 0.0, 0.1), oma = c(0,0, 1, 0))
-	plot(null, legend = TRUE)
+	par(mfrow = c(2,1), mar = c(2, 4, 0, 1))
 	boxplot(out)
 	plot(out)
 	
-
+	dev.new()
+	null = null.DMM(biomeAffinityMatrix, obs, n = 100)
+	plot(null, legend = TRUE)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
