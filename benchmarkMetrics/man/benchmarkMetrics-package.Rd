@@ -12,8 +12,8 @@ observations.
 \tabular{ll}{
 Package: \tab benchmarkMetrics\cr
 Type: \tab Package\cr
-Version: \tab 3.1\cr
-Date: \tab 2014-05-30\cr
+Version: \tab 3.2\cr
+Date: \tab 2017-02-06\cr
 License: \tab GPL 2\cr
 Website: https://bitbucket.org/teambcd/benchmarkmetrics
 }
