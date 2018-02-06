@@ -7,8 +7,8 @@
 \alias{summary.DMM}
 \alias{plot.DMM}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Descrete Manhattan Metric/ Descrete Square Chord Distance}
-\description{Performs the Descrete Manhattan Metric (DMM) and Descrete Square Chord Distance (DSCD) comparison between modelled and observed data on descrete, trait based items.}
+\title{Discrete Manhattan Metric/ Discrete Square Chord Distance}
+\description{Performs the Discrete Manhattan Metric (DMM) and Discrete Square Chord Distance (DSCD) comparison between modelled and observed data on Discrete, trait based items.}
 \usage{
   DMM (mat, x, y, w = NULL,
        matAsFile = is.character(matFile), row1AsNames = is.character(mat[1,1]), 
@@ -56,7 +56,7 @@ When items are exactly the same (i.e when a=b), d = 0. If biomes are completely 
 \deqn{DMM(obs, mod) = \Sigma d(a_i,b_i) / p}
 For a perfect model, BD=0. For a completely dissimilar model, BD = 2. As the metric is a linear combination of the difference in affinity scores, improvements in scores are directly proportional to improvement in model skill.
 
-For Descrete Square Chord Distance (\code{DSCD}), \dequn{d} is the squared version similar to \code{\link{SCD}}:
+For Discrete Square Chord Distance (\code{DSCD}), \dequn{d} is the squared version similar to \code{\link{SCD}}:
 \deqn{d(a, b) = \Sigma (x_{a,j}^0.5 - y_{a,j}^0.5)^2 / T}
 
 }

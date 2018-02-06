@@ -13,7 +13,7 @@ summary.DMM <- function(x, ...) {
 			scoreMat = list(x$scoreMat), 
 			similarity = list(similarityTable))
 	
-	class(summ) = "DescreteMetricSummary"
+	class(summ) = "DiscreteMetricSummary"
 	return(summ)
 }
 

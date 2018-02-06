@@ -13,10 +13,10 @@ print.MetricSummary <- function(x, ...) {
 	invisible(x)
 }
 
-print.DescreteMetricSummary <- function(x, ...) {
+print.DiscreteMetricSummary <- function(x, ...) {
 	
 	printMetricSummaryHead(x)
-	printMeanVarSummaryTable.Descrete(x)
+	printMeanVarSummaryTable.Discrete(x)
 	cat("\n")
 	printMetricSummaryScores(x)
 	cat("\n")
@@ -42,7 +42,7 @@ printMeanVarSummaryTable <- function(x) {
 	                      'xVariance', 'yVariance', 'x:y Variance ratios')])
 }
 
-printMeanVarSummaryTable.Descrete <- function(x) {
+printMeanVarSummaryTable.Discrete <- function(x) {
 	cat(' Basic Variable Information:\n')	
 	MeanVars = unlist(x[c('xMean',     'yMean')])
 	MeanVars = colnames(x$scoreMat)[MeanVars]
