@@ -51,8 +51,21 @@ printMeanVarSummaryTable.Descrete <- function(x) {
 	names(MeanVars) = c( 'x',     'y')
 	print(MeanVars)
 	
+	standard.round.matrix <- function(x, ...) {
+		x[] = standard.round(x, ...)
+		return(x)
+	}
+	
+	standard.round.matrix.print <- function(...) print(standard.round.matrix(...))
+	
 	cat("\n Type comparisons\n")
-	print(x$similarity)
+	standard.round.matrix.print(x$similarity[[1]])
+	
+	cat("\n score comparisons\n")
+	standard.round.matrix.print(x$similarity[[2]])
+	
+	cat("\n score contributions\n")
+	standard.round.matrix.print(x$similarity[[3]])
 }
 
 printMeanVarSummaryTableMM <- function(x) {

@@ -6,9 +6,12 @@ summary.DMM <- function(x, ...) {
 	
 	summ = basic.summaryInfo(x)
 	
+	similarityTable = similarityTable.DMM(x)[1:2]
+	similarityTable = c(similarityTable, list(similarityTable[[1]] * similarityTable[[2]]))
+	
 	summ = c(summ, Scores = x$score,
 			scoreMat = list(x$scoreMat), 
-			similarityTable = similarityTable.DMM(x)[1])
+			similarity = list(similarityTable))
 	
 	class(summ) = "DescreteMetricSummary"
 	return(summ)
@@ -21,26 +24,28 @@ similarityTable.DMM <- function(x) {
 	ix = unique(xi); nx = length(ix)
 	iy = unique(yi); ny = length(iy)
 	
-	z = matrix(0, ncol = length(ix), nrow = length(iy))
+	countTab = matrix(0, ncol = length(ix), nrow = length(iy))
 	
 	for (i in 1:nx) for (j in 1:ny) {
 		ii = ix[i]; jj = iy[j]
-		z[j, i] = sum(yi == jj & xi == ii)
+		countTab[j, i] = sum(yi == jj & xi == ii)
 	}
 	
-	colnames(z) = colnames(x$scoreMat)[ix]
-	rownames(z) = colnames(x$scoreMat)[iy]
-	return(list(z, ix, iy))
-}
-
-plot.DMM <- function(x, ...) {
-	c(countTab, ix, iy) := similarityTable.DMM(x)
+	colnames(countTab) = colnames(x$scoreMat)[ix]
+	rownames(countTab) = colnames(x$scoreMat)[iy]
+	
 	scoreTab = countTab
 	
 	is = rep(ix, each = length(iy))
 	js = rep(iy, length(ix))
 	
 	scoreTab[] =  mapply(function(i,j) x$scoreMat[i,j], is, js)
+	return(list(countTab, scoreTab, ix, iy))
+}
+
+plot.DMM <- function(x, ...) {
+	c(countTab, scoreTab, ix, iy) := similarityTable.DMM(x)
+	scoreTab = countTab
 	
 	yrange = c(0,  max(scoreTab[countTab > 0]), ...)
 	
