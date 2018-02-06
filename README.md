@@ -3,9 +3,10 @@
 This is an R package containing sepcifically design metrics to assess and benchmark Land Surface and Vegetation Models against observations, but can also be applied to any simulation vs observation comparison.
 
 ## Metrics
-That are 6 metrics used for differenttypes of comparison
-* Normalised Mean Error and Normalised Mean Squred Error (NME/NMSE) for most comparisons (inc gridded, temporal and site based comparisons)
-* Manhattan Metric and Square Chord Distance (MM/SCD) for "item" comparisons (i.e, fractional cover of different land surfaces)
+There are 8 metrics used for different types of comparison
+* Normalised Mean Error and Normalised Mean Squred Error (NME, NMSE) for most comparisons (inc gridded, temporal and site based comparisons)
+* Manhattan Metric and Square Chord Distance (MM, SCD) for "item" comparisons (i.e, fractional cover of different land surfaces)
+* A Discrete version of MM and SCD (DMM, DSCD) for item comparison for discete, one value items per cell/site, and items are described by affinity to traits.
 * Mean Phase Difference (MPD) for comparisons of osillaiting processes (i.e, seasonal or diurnal variations
 
 ## Interpretation
@@ -30,6 +31,7 @@ Info on the main functions can be found using:
 
     ?NME
     ?MM
+    ?DMM
     ?MPD
 
 ## More Info
