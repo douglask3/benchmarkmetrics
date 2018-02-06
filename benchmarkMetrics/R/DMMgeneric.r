@@ -55,7 +55,8 @@ plot.DMM <- function(x, ...) {
 	names = colnames(x$scoreMat)[ix]
 	names = sapply(names, convertStr2multiLine)
 	
-	axis(1, at = 1:length(ix), labels = names)
+	axis(1, at = 1:length(ix), labels = names, padj = 1, line = -1, lty = 0)
+	axis(1, at = 0:(length(ix)+1), labels = rep('', length(ix) + 2))
 	axis(2)
 	
 	findPoints <- function(i, j) {
