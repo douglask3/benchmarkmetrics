@@ -135,4 +135,4 @@ medianMod.DMM <- function(x, ...)
 	return(list('Median', x))
 
 null.DMM  <- function(mat, x, ...) null.FUN(x, DMM , items=TRUE, medianFun = medianMod.DMM, meanFun = meanMod.DMM, mat = mat,...)
-#null.DSCD <- function(x, ...) null.FUN(x, DSCD, items=TRUE, ...)
+null.DSCD <- function(mat, x, ...) null.FUN(x, DSCD, items=TRUE, medianFun = medianMod.DMM, meanFun = meanMod.DMM, mat = mat, ...)
