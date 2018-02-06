@@ -11,7 +11,7 @@
   MPD measures model to observed error for pedictable periodic patterns (ie weasonal variablity) characterised in terms of differences in concentration (i.e inverse of season length) and phase (i.e timing of season).
 }
 \usage{
-MPD(x, y, w = NULL, , allowRegridding = TRUE, ...)
+MPD(x, y, w = NULL, allowRegridding = TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
