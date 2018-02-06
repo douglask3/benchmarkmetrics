@@ -11,10 +11,10 @@
 \description{Performs the Discrete Manhattan Metric (DMM) and Discrete Square Chord Distance (DSCD) comparison between modelled and observed data on Discrete, trait based items.}
 \usage{
   DMM (mat, x, y, w = NULL,
-       matAsFile = is.character(matFile), row1AsNames = is.character(mat[1,1]), 
+       matAsFile = is.character(mat), row1AsNames = is.character(mat[1,1]), 
 	   traitID = TRUE, allowRegridding = TRUE)
   DSCD(mat, x, y, w = NULL,
-       matAsFile = is.character(matFile), row1AsNames = is.character(mat[1,1]), 
+       matAsFile = is.character(mat), row1AsNames = is.character(mat[1,1]), 
 	   traitID = TRUE, allowRegridding = TRUE)
 
 }
