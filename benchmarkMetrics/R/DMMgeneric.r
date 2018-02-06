@@ -42,9 +42,10 @@ plot.DMM <- function(x, ...) {
 	
 	scoreTab[] =  mapply(function(i,j) x$scoreMat[i,j], is, js)
 	
-	yrange = c(0,  max(scoreTab[countTab > 0]))
+	yrange = c(0,  max(scoreTab[countTab > 0]), ...)
 	
-	plot(c(0.5, length(ix) + 0.5), yrange, type = 'n', axes = FALSE, xlab = '', ylab = '')
+	plot(c(0.5, length(ix) + 0.5), yrange, type = 'n', 
+		 axes = FALSE, xlab = '', ylab = 'score')
 	
 	names = colnames(x$scoreMat)[ix]
 	names = sapply(names, convertStr2multiLine)
@@ -84,6 +85,8 @@ plot.DMM <- function(x, ...) {
 	}
 	
 	apply(pnts, 1, addPoints )
+	
+	invisible()
 }
 
 boxplot.DMM <- function(x, ...)  {
@@ -94,7 +97,7 @@ boxplot.DMM <- function(x, ...)  {
 	names = colnames(x$scoreMat)[index]
 	names = sapply(names, convertStr2multiLine)
 	
-	boxplot(xsplit, axes = FALSE)
+	boxplot(xsplit, axes = FALSE, ylab = 'score', ...)
 	axis(2)
 	
 	ncats = length(index)

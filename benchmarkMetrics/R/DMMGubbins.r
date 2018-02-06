@@ -1,7 +1,7 @@
 check.and.norm.performDMM <- function(mat, x, y, w, 
 								      matAsFile = is.character(matFile), 
 									  row1AsNames = is.character(mat[1,1]), 
-									  traitID = TRUE, ...) {
+									  traitID = TRUE, allowRegridding = TRUE, ...) {
 	
 	if (matAsFile) mat = read.csv(mat, stringsAsFactors = FALSE)
 	
@@ -15,9 +15,12 @@ check.and.norm.performDMM <- function(mat, x, y, w,
 	normaliseTrait <- function(index) 
 		mat[index] / apply(mat[index], 1, sum)
 	
-	if (!is.null(traitID)) 
-	if (is.logical(traitID) && traitID) {
-		nTraits = dim(mat)[2]
+	if (is.null(traitID))  
+		nTraits = ncol(mat)
+	else if (is.logical(traitID)) {		
+		if (traitID) nTraits = ncol(mat)
+			else nTraits = 1
+		
 		mat = normaliseTrait(1:nTraits)
 	} else if (!is.logical(traitID)) {
 		IDs = unique(traitID)
@@ -34,16 +37,11 @@ check.and.norm.performDMM <- function(mat, x, y, w,
 		y = nrow(mat)
 	}
 	
-	c(x, y, w) := structure.inputs(x, y, w)
+	c(x, y, w) := structure.inputs(x, y, w, allowRegridding = allowRegridding)
 	
 	out = setDMMclassVars(mat, names, nTraits, x, y, w, ...)
 	return(out)
 }
-
-#DMMForm <- function(x, y) {
-#	sum(abs(mat[b1,] - mat[b2,])) / sum(mat[b1,] + mat[b2,])
-	
-#DSCDForm <- function(x, y) {
 	
 
 setDMMclassVars <- function(mat, names, nTraits, x, y, w, varFun = absVar, metFun = MMForm,
