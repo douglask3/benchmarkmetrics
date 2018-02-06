@@ -45,7 +45,7 @@ similarityTable.DMM <- function(x) {
 
 plot.DMM <- function(x, ...) {
 	c(countTab, scoreTab, ix, iy) := similarityTable.DMM(x)
-	scoreTab = countTab
+
 	
 	yrange = c(0,  max(scoreTab[countTab > 0]), ...)
 	
