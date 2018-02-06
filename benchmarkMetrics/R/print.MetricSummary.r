@@ -49,8 +49,10 @@ printMeanVarSummaryTable.Descrete <- function(x) {
 	
 	cat('Most common type\n')
 	names(MeanVars) = c( 'x',     'y')
-
 	print(MeanVars)
+	
+	cat("\n Type comparisons\n")
+	print(x$similarity)
 }
 
 printMeanVarSummaryTableMM <- function(x) {
