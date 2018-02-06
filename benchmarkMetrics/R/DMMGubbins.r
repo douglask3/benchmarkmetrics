@@ -1,5 +1,5 @@
 check.and.norm.performDMM <- function(mat, x, y, w, 
-								      matAsFile = is.character(matFile), 
+								      matAsFile = is.character(mat), 
 									  row1AsNames = is.character(mat[1,1]), 
 									  traitID = TRUE, allowRegridding = TRUE, ...) {
 	
