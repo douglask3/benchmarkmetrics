@@ -1,5 +1,5 @@
-check.and.norm.performMM <- function(x, y, w, ...) {
-	c(x, y, w) := structure.inputs(x, y, w , itemize = TRUE)
+check.and.norm.performMM <- function(x, y, w, allowRegridding = TRUE, ...) {
+	c(x, y, w) := structure.inputs(x, y, w , itemize = TRUE, allowRegridding = allowRegridding)
 	
 	if (dim(x)[2]<2 && dim(y)[2]<2)
 	    stop("2 or more items required")
