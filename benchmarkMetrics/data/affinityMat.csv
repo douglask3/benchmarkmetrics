@@ -1,13 +1,13 @@
 Biome,Productive,Arid,Tall,Short,Hot,Cold
-tropical forest,1,0,1,0,1,0
-warm temperate forest,1,0,1,0,0.67,0.33
-temperate forest,1,0,1,0,0.33,0.67
-Boreal Forest,1,0,1,0,0,1
-tropical savannah,0.67,0.33,0,1,1,0
-Schlerophyl parkland,0.67,0.33,0,1,0.67,0.33
-temperate parkland,0.67,0.33,0,1,0.33,0.67
-boreal parkland,0.67,0.33,0,1,0,1
-dry grass or shrub,0.33,0.67,0,1,1,0
-desert,0,1,0,1,1,0
-shrub tundra,0.33,0.67,0,1,0,1
-tundra,0,1,0,1,0,1
+Tf,1,0,1,0,1,0
+wtf,1,0,1,0,0.67,0.33
+tf,1,0,1,0,0.33,0.67
+bf,1,0,1,0,0,1
+Ts,0.67,0.33,0,1,1,0
+sp,0.67,0.33,0,1,0.67,0.33
+tp,0.67,0.33,0,1,0.33,0.67
+bp,0.67,0.33,0,1,0,1
+g,0.33,0.67,0,1,1,0
+d,0,1,0,1,1,0
+st,0.33,0.67,0,1,0,1
+tf,0,1,0,1,0,1
