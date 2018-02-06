@@ -1,7 +1,11 @@
+import(plotrix, raster)
+
 export(NME, NME.default, NMSE, NMSE.default,
        print.NME, summary.NME, plot.NME, score.NME, null.NME, null.NMSE,
-       MM , MM.default , SCD , SCD.default,
-       print.MM , summary.MM , plot.MM, score.MM  , null.MM , null.SCD,
+        MM , MM.default,  SCD,  SCD.default,
+	   DMM, DMM.default, DSCD, DSCD.default,
+       print.MM  , summary.MM  , plot.MM , score.MM   , null.MM  , null.SCD ,
+       print.DMM , summary.DMM , plot.DMM, score.DMM  , null.DMM , null.DSCD, boxplot.DMM,
        MPD, MPD.default,
        print.MPD, summary.MPD, plot.MPD, score.MPD, null.MPD,
        print.nullModel, summary.nullModel, plot.nullModel,
@@ -11,4 +15,4 @@ export(NME, NME.default, NMSE, NMSE.default,
             PolarConcentrationAndPhase.RasterStack,
             PolarConcentrationAndPhase.RasterBrick)
 
-import(plotrix, raster)
+
