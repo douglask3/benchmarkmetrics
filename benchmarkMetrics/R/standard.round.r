@@ -1,10 +1,10 @@
-standard.round <- function(x) sapply(x, standard.round.ind)
+standard.round <- function(x, ...) sapply(x, standard.round.ind, ...)
 
-standard.round.ind <- function(x) {
-	if (is.na(x)) 	return(x)
+standard.round.ind <- function(x, nround = 2) {
+	if (is.na(x) || is.infinite(x) || x == 0) 	return(x)
 	ndig = find.ndig(x)
-	if (ndig == 0)  return(signif(x,2))
-	if (ndig == 1)  return(round(x,2))
+	if (ndig == 0)  return(signif(x,nround))
+	if (ndig == 1)  return(round(x,nround))
 	
 					return(round(x))
 }
