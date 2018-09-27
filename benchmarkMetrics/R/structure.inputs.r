@@ -1,23 +1,24 @@
-structure.inputs <- function(x, y, w, itemize = FALSE, na.rm = TRUE,
-                             allowRegridding = TRUE) {
+structure.inputs <- function(x, y, w, itemize = FALSE, na.rm = !maintainShape,
+                             allowRegridding = TRUE, maintainShape = FALSE) {
 
     if (allowRegridding &&is.raster(x) && is.raster(y))
         c(x, y, w) := cropInputs(x ,y, w)
 	
-    x = setAsMatrix(x)
-	y = setAsMatrix(y)
+    x = setAsMatrix(x, maintainShape = maintainShape)
+	y = setAsMatrix(y, maintainShape = maintainShape)
 	
 	if (!all(dim(x) == dim(y))) c(x, y) := matchDimensions(x, y)
 
     if (is.null(w))
         if (itemize) w = array(1, dim(x)[1]) else w = array(1,dim(x))
 
-    w = setAsMatrix(w)
+    w = setAsMatrix(w, maintainShape = maintainShape)
 	
     if (length(w) == 1) w = array(w,dim(x))
 
-    if (!itemize) {
+    if (!itemize & !maintainShape) {
         nc = ncol(x)
+		
         c(x, y, w) := lapply(list(x, y, w), function(i)
                                                 matrix(i, ncol = 1))
         if (nc*length(w) == length(x)) w = as.matrix(rep(w, nc))
@@ -31,6 +32,7 @@ structure.inputs <- function(x, y, w, itemize = FALSE, na.rm = TRUE,
         w = as.matrix(w[test, ])
 
     }
+	
     return(list(x, y, w))
 }
 
@@ -62,9 +64,10 @@ cropInputs <- function(x, y, w = NULL) {
 
 
 
-setAsMatrix <- function(x) {
+setAsMatrix <- function(x, maintainShape = FALSE) {
+	
     if (class(x) == "ts") return(ts2matrix(x)) else {
-        if (is.raster(x)) x = values(x)
+        if (is.raster(x) & !maintainShape)  x = values(x)
         return(as.matrix(x))
     }
 }

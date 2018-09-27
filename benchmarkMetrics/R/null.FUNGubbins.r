@@ -1,17 +1,18 @@
-medianMod.FUN <- function(x, w = NULL, FUN, medianFun = median,...) {
-	medianX = nullModFun(x, medianFun)
-	return(score(FUN(x, medianX, w, ...)))
-}
-
-nullModFun <- function(x, fun) {
-	if (ncol(x) == 1) X = fun(x)
-	else X = apply(x, 2, fun)
+nullModFun <- function(x, fun, maintainShape = FALSE) {
+	if (ncol(x) == 1 || maintainShape) X = fun(x, na.rm = TRUE)
+	else X = apply(x, 2, fun, na.rm = TRUE)
 	return(X)
 }
 
+medianMod.FUN <- function(x, w = NULL, FUN, medianFun = median, maintainShape = FALSE, ...) {
+	medianX = nullModFun(x, medianFun, maintainShape)
+	browser()
+	return(score(FUN(x, medianX, w, ...)))
+}
 
-meanMod.FUN <- function(x, w = NULL, FUN, meanFun = mean, ...) {
-	meanX = nullModFun(x, meanFun)
+meanMod.FUN <- function(x, w = NULL, FUN, meanFun = mean, maintainShape = FALSE, ...) {
+	meanX = nullModFun(x, meanFun, maintainShape)
+	browser()
     return(score(FUN(x, meanX, w, ...)))
 }
 
@@ -24,18 +25,22 @@ randMod.FUN <- function(x, w = NULL, FUN, nrs=1000, ...) {
     return(sapply(1:nrs, randComp))
 }
 
-structure.inputs.nulls <- function(x, w, items = FALSE, allowRegridding = TRUE) {
+structure.inputs.nulls <- function(x, w, items = FALSE, allowRegridding = TRUE, maintainShape = FALSE) {
     wNtNull = !is.null(w)
     if (allowRegridding && wNtNull &&
         is.raster(x) && is.raster(w))
         c(x, w) := cropInputs(x, w)
-    x = setAsMatrix(x)
+    x = setAsMatrix(x, maintainShape = maintainShape)
 
-    if (wNtNull) w = setAsMatrix(w)
+    if (wNtNull) w = setAsMatrix(w, maintainShape = maintainShape)
 
     if (!items) {
-        x = as.matrix(as.vector(x))
-        if (wNtNull) w = as.matrix(as.vector(w))
+		if (!maintainShape) {
+			x = as.vector(x)
+			if (wNtNull) w = as.vector(w)
+		}
+        x = as.matrix(x)
+        if (wNtNull) w = as.matrix(w)
     }
 
 	Mask <- function() {
@@ -47,8 +52,10 @@ structure.inputs.nulls <- function(x, w, items = FALSE, allowRegridding = TRUE) 
 		return(list(x, w))
 	}
 	
-	MaskOut = try(Mask(), silent = TRUE)
-	if (class(MaskOut) != "try-error") c(x, w) := MaskOut
-
+	if (!maintainShape) {
+		MaskOut = try(Mask(), silent = TRUE)
+		if (class(MaskOut) != "try-error") c(x, w) := MaskOut
+	}
+	
     return(list(x, w))
 }

@@ -1,5 +1,8 @@
-structure.inputs.performNME <- function(x, y, w, allowRegridding = TRUE, ...) {
-	c(x, y, w) := structure.inputs(x, y, w, allowRegridding = allowRegridding)
+structure.inputs.performNME <- function(x, y, w, 
+							            allowRegridding = TRUE, maintainShape = FALSE, ...) {
+	c(x, y, w) := structure.inputs(x, y, w, 
+								   allowRegridding = allowRegridding, 
+								   maintainShape = maintainShape)
 	out = setNMEclassVars(x, y, w, ...)	
 	return(out)
 }
@@ -23,7 +26,7 @@ NMEGubbins <- function(x, y, w,
 	y2   = MeanSub(y, x)
 	NME2 = metFun (x, y2, w)
 	
-    y3   = VarDiv (y2, x, varFun) 
+    y3   = VarDiv (y2, x, varFun, na.rm = TRUE) 
     y3   = MeanSub(y3, x)
 	NME3 = metFun (x, y3, w)
 	
@@ -31,6 +34,6 @@ NMEGubbins <- function(x, y, w,
                 y123 = cbind(y, y2, y3)))
 }
 
-VarDiv  <- function(x, y, FUN) mean(y) + x * FUN(y) / FUN(x)
-MeanSub <- function(x, y) x - mean(x) + mean(y)
-absVar  <- function(x) mean(abs(x - mean(x)))
+VarDiv  <- function(x, y, FUN, ...) mean(y, na.rm = TRUE) + x * FUN(y, ...) / FUN(x, ...)
+MeanSub <- function(x, y) x - mean(x, na.rm = TRUE) + mean(y, na.rm = TRUE)
+absVar  <- function(x, na.rm = TRUE) mean(abs(x - mean(x, na.rm = na.rm)), na.rm = na.rm)
