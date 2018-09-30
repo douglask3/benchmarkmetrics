@@ -5,14 +5,13 @@ nullModFun <- function(x, fun, maintainShape = FALSE) {
 }
 
 medianMod.FUN <- function(x, w = NULL, FUN, medianFun = median, maintainShape = FALSE, ...) {
-	medianX = nullModFun(x, medianFun, maintainShape)
-	browser()
+	medianX = nullModFun(x, medianFun)
+	if (maintainShape) medianX = NaN
 	return(score(FUN(x, medianX, w, ...)))
 }
 
 meanMod.FUN <- function(x, w = NULL, FUN, meanFun = mean, maintainShape = FALSE, ...) {
 	meanX = nullModFun(x, meanFun, maintainShape)
-	browser()
     return(score(FUN(x, meanX, w, ...)))
 }
 

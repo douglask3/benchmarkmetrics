@@ -12,7 +12,10 @@ NMGEForm <- function(x, y, w) {
 	}
 	
 	x_xy = getXY(x)
-	y_xy = getXY(y)
+	if (is.null(y))
+		y_xy = lapply(x_xy, function(i) {i[,] = median(i, na.rm = TRUE); i})
+	else
+		y_xy = getXY(y)
 	
 	sqrdDist <- function(i, x = x_xy, y = y_xy) 
 		(x[[i]] - y[[i]])^2
