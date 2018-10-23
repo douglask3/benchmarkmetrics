@@ -7,7 +7,7 @@ standard.round.ind <- function(x, n = 2) {
 	if (ndig == 0)  return(signif(x,n))
 	if (ndig == 1)  return(round(x,n))
 	
-	return(round(x, nround))
+	return(round(x, n))
 }
 
 

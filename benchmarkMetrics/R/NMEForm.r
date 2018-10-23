@@ -1,8 +1,21 @@
-NMEForm  <- function(x, y, w) sum(w * abs(y - x)) / sum(w * abs(x - mean(x)))
+sum_numerator <- function(score, w, sum_numerator = TRUE) {
+	if (sum_numerator) score = mean(score * w) else score = score * mean(w)
+	return(score)
+}
 
-NMSEForm <- function(x, y, w) sum(w * (y - x)^ 2) / sum(w * (x - mean(x))^ 2)
+NMEForm  <- function(x, y, w, sum_numerator = TRUE) {
+	score = abs(y - x)/mean(w * abs(x - mean(x)))
+	score = sum_numerator(score, w, sum_numerator)
+	return(score)
+}
 
-NMGEForm <- function(x, y, w) {
+NMSEForm <- function(x, y, w, sum_numerator = TRUE) {
+	score = ((y - x)^ 2) / mean(w * (x - mean(x))^ 2)
+	score = sum_numerator(score, w, sum_numerator)
+	return(score)
+}
+
+NMGEForm <- function(x, y, w, sum_numerator = TRUE) {
 	getXY <- function(r) {	
 		nc = ncol(r); nr = nrow(r)
 		
@@ -26,5 +39,8 @@ NMGEForm <- function(x, y, w) {
 	y_xy = lapply(y_xy, function(i) {i[,] = 0; i})
 	dom = sqrt(sqrdDist(1) + sqrdDist(2))
 	
-	res = sum(w * num, na.rm = TRUE) / sum(w * dom, na.rm = TRUE)
+	score = num / mean(w * dom, na.rm = TRUE)
+	
+	score = sum_numerator(score, w, sum_numerator)
+	return(score)
 }

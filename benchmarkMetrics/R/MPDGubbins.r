@@ -10,13 +10,14 @@ MPDGubbins <- function(x, y, w, ncycle = NULL, ...) {
 	c(yp, yc) := PolarConcentrationAndPhase(y, ncycle = ncycle)
 	
 	#w = w * apply(x, 1, sum)
-	
-	return(list(Phase = MPDonly(xp, yp, w),
+		
+	return(list(Phase = MPDonly(xp, yp, w), 
 	            Concentration = NME(xc, yc, w, ...)))
 }
 
 MPDonly <- function(x, y, w, ...) {
-	Phase = list(Score = MPDForm(x, y, w))
+	Phase = list(Score = MPDForm(x, y, w), diff = MPDForm(x, y, w, FALSE))
+	
 	Phase = setMetClassInfo(Phase, x, y, w,
                             varFun = phaseAVar,
                             DiffFun = radianDiffs)

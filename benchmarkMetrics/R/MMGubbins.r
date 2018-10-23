@@ -20,7 +20,8 @@ check.and.norm.performMM <- function(x, y, w, allowRegridding = TRUE, ...) {
 setMMclassVars <- function(x, y, w, varFun = absVar, metFun = MMForm,
 	                       step1only = NULL, ...) {
 	
-	out = list(score = metFun(x, y, w, ...))
+	
+	out = list(score = metFun(x, y, w, ...), diff = metFun(x, y, w, sum_numerator = FALSE, ...))
 	out = setMetClassInfo(out, x, y, w, varFun = varFun, itemize = TRUE)
 	class(out) = "MM"
 	return(out)

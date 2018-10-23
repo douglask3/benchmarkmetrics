@@ -19,19 +19,22 @@ NMEGubbins <- function(x, y, w,
                        metFun = NMEForm, varFun = absVar,
                        step1only = FALSE) {
 	
-	NME1 = metFun(x, y, w)
+	NME1     = metFun(x, y, w)
+	NME1_pnt = metFun(x, y, w, FALSE)
     
     if (step1only) return(list(score = NME1))
     
 	y2   = MeanSub(y, x)
-	NME2 = metFun (x, y2, w)
+	NME2     = metFun (x, y2, w)
+	NME2_pnt = metFun (x, y2, w, FALSE)
 	
     y3   = VarDiv (y2, x, varFun, na.rm = TRUE) 
     y3   = MeanSub(y3, x)
-	NME3 = metFun (x, y3, w)
+	NME3     = metFun (x, y3, w)
+	NME3_pnt = metFun (x, y3, w, FALSE)
 	
 	return(list(step1 = NME1, step2 = NME2, step3 = NME3,
-                y123 = cbind(y, y2, y3)))
+                y123 = cbind(y, y2, y3), diff = cbind(NME1_pnt, NME2_pnt, NME3_pnt), x = x))
 }
 
 VarDiv  <- function(x, y, FUN, ...) mean(y, na.rm = TRUE) + x * FUN(y, ...) / FUN(x, ...)
