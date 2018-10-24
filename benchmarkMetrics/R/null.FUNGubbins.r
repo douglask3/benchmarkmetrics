@@ -6,7 +6,7 @@ nullModFun <- function(x, fun, maintainShape = FALSE) {
 
 medianMod.FUN <- function(x, w = NULL, FUN, medianFun = median, maintainShape = FALSE, ...) {
 	medianX = nullModFun(x, medianFun)
-	if (maintainShape) medianX = NaN
+	#if (maintainShape) medianX = NaN
 	return(score(FUN(x, medianX, w, ...)))
 }
 

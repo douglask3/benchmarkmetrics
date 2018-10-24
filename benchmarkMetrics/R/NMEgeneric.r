@@ -41,4 +41,5 @@ score.NME <- function(x, ...)
 null.NME  <- function(x, ...) null.FUN(x, NME , items = FALSE, ...)
 null.NMSE <- function(x, ...) null.FUN(x, NMSE, items = FALSE, ...)
 null.NMGE <- function(x, ...) null.FUN(x, NMGE, items = FALSE, maintainShape = TRUE,...)
+null.NMDE <- function(x, ...) null.FUN(x, NMDE, items = FALSE, maintainShape = TRUE,...)
 

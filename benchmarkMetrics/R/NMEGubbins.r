@@ -9,6 +9,7 @@ structure.inputs.performNME <- function(x, y, w,
 
 setNMEclassVars <- function(x, y, w, varFun = absVar, ...) {
 	out=NMEGubbins(x, y, w, varFun = varFun, ...)
+	w = as.matrix(as.vector(w))
     out=setMetClassInfo(out, x, y, w, varFun = absVar)
     
 	class(out) = "NME"
@@ -17,24 +18,30 @@ setNMEclassVars <- function(x, y, w, varFun = absVar, ...) {
 
 NMEGubbins <- function(x, y, w,
                        metFun = NMEForm, varFun = absVar,
-                       step1only = FALSE) {
+                       step1only = FALSE, ...) {
 	
-	NME1     = metFun(x, y, w)
-	NME1_pnt = metFun(x, y, w, FALSE)
-    
+	run_with_diff <- function(yi) {
+		NME     = metFun(x, yi, w, ...)
+		if (class(NME) == "list" &&  length(NME) ==2) {
+			NME_pnt = NME[[2]]
+			NME = NME[[1]]
+		} else NME_pnt = metFun(x, y, w, FALSE, ...)
+		
+		return(list(NME, NME_pnt))
+	}
+	
+	c(NME1, NME1_pnt) := run_with_diff(y)
     if (step1only) return(list(score = NME1))
     
 	y2   = MeanSub(y, x)
-	NME2     = metFun (x, y2, w)
-	NME2_pnt = metFun (x, y2, w, FALSE)
+	c(NME2, NME2_pnt) := run_with_diff(y2)
 	
     y3   = VarDiv (y2, x, varFun, na.rm = TRUE) 
     y3   = MeanSub(y3, x)
-	NME3     = metFun (x, y3, w)
-	NME3_pnt = metFun (x, y3, w, FALSE)
+	c(NME3, NME3_pnt) := run_with_diff(y3)
 	
 	return(list(step1 = NME1, step2 = NME2, step3 = NME3,
-                y123 = cbind(y, y2, y3), diff = cbind(NME1_pnt, NME2_pnt, NME3_pnt), x = x))
+                y123 = sapply(list(y, y2, y3), as.vector), diff = cbind(NME1_pnt, NME2_pnt, NME3_pnt), x = x))
 }
 
 VarDiv  <- function(x, y, FUN, ...) mean(y, na.rm = TRUE) + x * FUN(y, ...) / FUN(x, ...)

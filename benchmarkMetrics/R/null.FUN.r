@@ -4,7 +4,7 @@ null.FUN.default <- function(x, FUN, w = NULL, n = 1000, items = FALSE, maintain
 	                         step1only = c(TRUE, TRUE), medianFun = median, meanFun = mean, ...) {
 
 	c(x, w) := structure.inputs.nulls(x, w, items, maintainShape = maintainShape)
-
+	
 	mediScore = medianMod.FUN(x, w, FUN,    step1only = step1only[1],
 							  medianFun = medianFun, maintainShape = maintainShape, ...)
 							  
